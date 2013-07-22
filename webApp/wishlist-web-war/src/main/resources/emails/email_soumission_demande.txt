@@ -1,0 +1,4 @@
+Madame, Monsieur,
+L''école de conduite {0} a effectuée une demande de {1}.
+Elle concerne la qualification {2} du centre  {3} d''identifiant {4}.
+Merci de bien vouloir traiter cette demande.

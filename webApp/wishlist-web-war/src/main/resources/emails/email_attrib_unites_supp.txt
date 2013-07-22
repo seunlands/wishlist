@@ -1,0 +1,8 @@
+Madame, Monsieur,
+
+Vous avez {0} option{3} accordée{3} pour la séance d''examen : 
+    -Centre/Ressource : {4}/{5}
+    -Examen : Permis {1}
+    -Date : {2}
+    -Horaire : {6}
+    

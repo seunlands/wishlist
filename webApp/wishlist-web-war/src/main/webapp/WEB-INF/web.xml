@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<display-name>Extranet CETE</display-name>
+	
+	
+	<listener>
+		<listener-class>i2.application.extranet.filtres.ContextLoaderListener</listener-class>
+		
+	</listener>
+	
+	<!-- Fichiers de configurations -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+				/WEB-INF/applicationContextSource.xml
+				classpath:applicationContextCommun.xml
+				classpath:applicationContextJasper.xml
+				classpath:applicationContextReservation.xml
+				classpath:applicationContextOption.xml
+				classpath:applicationContextAffectation.xml
+				classpath:applicationContextRestitution.xml
+				classpath:applicationContextAdministration.xml
+				classpath:applicationContextBusiness.xml
+				classpath:applicationContextRattachement.xml
+				classpath:applicationContextSelectionAE.xml
+				classpath:applicationContextAttribution.xml
+				classpath:applicationContextAlertes.xml
+				classpath:applicationContextAjustement.xml
+				classpath:applicationContextDao.xml
+				classpath:applicationContextRecevabilite.xml
+		</param-value>
+	</context-param>
+	
+	<!-- Filtres -->
+	<!-- Filtre permettant de régler l'encodage en UTF8 ATTENTION : ce filtre 
+		doit être le premier de la chaîne -->
+	<filter>
+		<filter-name>SetCharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>FiltreCerbere</filter-name>
+		<filter-class>i2.application.cerbere.filtre.FiltreCerbere</filter-class>
+		<init-param>
+			<param-name>applicationId</param-name>
+			<param-value>extranet</param-value>
+		</init-param>
+		<init-param>
+			<param-name>applicationEntree</param-name>
+			<param-value>/accueil/init.do</param-value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>FiltreSessionTimeout</filter-name>
+		<filter-class>i2.application.extranet.filtres.SessionTimeoutFilter</filter-class>
+	</filter>
+	
+	<filter>
+		<filter-name>FiltreDroits</filter-name>
+		<filter-class>i2.application.extranet.filtres.FiltreDroits</filter-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/classes/filtredroits.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>applicationEntree</param-name>
+			<param-value>/accueil/init.do</param-value>
+		</init-param>
+		<init-param>
+			<param-name>applicationErreur</param-name>
+			<param-value>/erreurs/droit.do</param-value>
+		</init-param>
+	</filter>
+	
+	<!-- Portee des filtres -->
+	<filter-mapping>
+		<filter-name>SetCharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltreCerbere</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>FiltreSessionTimeout</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>FiltreDroits</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Standard Action Servlet Configuration (with debugging) -->
+	<servlet>
+		<servlet-name>extranet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>extranet</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>extranet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	<!-- The Welcome File List -->
+	<welcome-file-list>
+		<welcome-file>accueil/init.do</welcome-file>
+	</welcome-file-list>
+
+	<!-- TimeOut de la session -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	
+	<!--  Param -->
+	<context-param>
+		<param-name>libelleMinistere</param-name>
+		<param-value>Ministère de l'écologie, de l'énergie, du developpement durable et de la mer</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>mailMinistere</param-name>
+		<param-value>EXTRANET.DSCR@developpement-durable.gouv.fr</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>nbAutoEcoleParPage</param-name>
+		<param-value>10</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>nbPermisParPage</param-name>
+		<param-value>1</param-value>
+	</context-param>
+	
+		<context-param>
+		<param-name>nbPermisParPageUnitesProgrammees</param-name>
+		<param-value>1</param-value>
+	</context-param>
+
+</web-app>

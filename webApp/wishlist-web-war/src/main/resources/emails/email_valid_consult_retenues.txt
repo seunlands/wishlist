@@ -1,0 +1,3 @@
+Madame, Monsieur,
+
+Le tableau de ventilation des unités retenues de {0} du département {1} a été validé le {2}. 

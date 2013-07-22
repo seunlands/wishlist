@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>wishlist-web-war</groupId>
+	<artifactId>wishlist-web-war</artifactId>
+	<packaging>war</packaging>
+	<name>wishlist-web-war</name>
+
+	<parent>
+		<groupId>org.landocore.wishlist</groupId>
+		<artifactId>webApp</artifactId>
+		<version>0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<build>
+		<finalName>wishlist</finalName>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.1.1</version>
+					<configuration>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+						<warSourceExcludes>META-INF\context.xml</warSourceExcludes>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	
+
+
+	<properties>
+		<tiles.version>2.0.6</tiles.version>
+		<tiles.servlet.version>2.1.2</tiles.servlet.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.landocore.wishlist</groupId>
+			<artifactId>wishlist-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.landocore.wishlist</groupId>
+			<artifactId>wishlist-business</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.landocore.wishlist</groupId>
+			<artifactId>wishlist-bean</artifactId>
+		</dependency>
+	</dependencies>
+
+
+	
+</project>

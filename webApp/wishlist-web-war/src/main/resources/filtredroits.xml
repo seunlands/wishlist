@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<filtres>
+
+	<!-- acces admin -->
+	<filtre>
+		<commentaire>Gestion des paramètres ADMIN</commentaire>
+		<url>/intranet/parametres/*</url>
+		<typeAccesDev>INTRANET</typeAccesDev>
+		<typesDroit>
+			<typeDroit>DROIT_ADMIN</typeDroit>
+		</typesDroit>
+	</filtre>
+
+	<!-- acces AE LECT REP -->
+	<filtre>
+		<commentaire>droits GPE</commentaire>
+		<url>/gpe/*</url>
+		<typesDroit>
+			<typeDroit>DROIT_GPE</typeDroit>
+		</typesDroit>
+	</filtre>
+	
+	<!-- access REP LECT -->
+	
+	<filtre>
+		<commentaire>Droits REP Reservation</commentaire>
+		<url>/intranet/reservation/*</url>
+		<typeAccesDev>INTRANET</typeAccesDev>
+		<typesDroit>
+			<typeDroit>DROIT_REPARTITION</typeDroit>
+		</typesDroit>
+	</filtre>
+	
+	<filtre>
+		<commentaire>Droits REP Attribution</commentaire>
+		<url>/intranet/attribution/*</url>
+		<typeAccesDev>INTRANET</typeAccesDev>
+		<typesDroit>
+			<typeDroit>DROIT_REPARTITION</typeDroit>
+		</typesDroit>
+	</filtre>
+	
+	<filtre>
+		<commentaire>Droits REP Rattachement</commentaire>
+		<url>/intranet/rattachement/*</url>
+		<typeAccesDev>INTRANET</typeAccesDev>
+		<typesDroit>
+			<typeDroit>DROIT_REPARTITION</typeDroit>
+		</typesDroit>
+	</filtre>
+
+
+</filtres>

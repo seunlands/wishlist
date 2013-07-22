@@ -1,0 +1,8 @@
+Madame, Monsieur,
+
+Les options accordées, pour la séance d''examen décrite ci-dessous, ont été annulées : 
+    -Centre/Ressource : {4}/{5}
+    -Examen : Permis {1}
+    -Date : {2}
+    -Horaire : {6}
+    
