@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/landocore-web-war-tools.iml" filepath="$PROJECT_DIR$/landocore-web-war-tools.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webApp/webApp.iml" filepath="$PROJECT_DIR$/webApp/webApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webApp/wishlist-bean/wishlist-bean.iml" filepath="$PROJECT_DIR$/webApp/wishlist-bean/wishlist-bean.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webApp/wishlist-business/wishlist-business.iml" filepath="$PROJECT_DIR$/webApp/wishlist-business/wishlist-business.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webApp/wishlist-web/wishlist-web.iml" filepath="$PROJECT_DIR$/webApp/wishlist-web/wishlist-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webApp/wishlist-web-war/wishlist-web-war.iml" filepath="$PROJECT_DIR$/webApp/wishlist-web-war/wishlist-web-war.iml" />
+    </modules>
+  </component>
+</project>
+

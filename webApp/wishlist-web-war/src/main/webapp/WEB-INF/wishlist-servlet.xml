@@ -2,108 +2,17 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<!-- les mappings de l'application-->
-	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<props>	
-				<!-- Accueil -->
- 				<prop key="/accueil/init.do">Index</prop>
- 				<prop key="/deconnexion.do">Deconnexion</prop>
- 				<prop key="/accueil/changerChoix.do">ChangerChoix</prop>
- 				<prop key="/accueil/changerProfil.do">ChangerProfilController</prop>
-				
-				<!--Reservation -->
- 				<prop key="/gpe/reservation/reserverUnites.do">ReservationController</prop>
- 				<prop key="/gpe/reservation/txt/reserverUnites.do">ReservationTxtController</prop>
- 				<prop key="/intranet/reservation/ajuster.do">AjustementController</prop>
- 				<prop key="/intranet/reservation/consulterUnitesRetenues.do">ConsultationUnitesRetenuesController</prop>
-	  			<prop key="/intranet/reservation/autoriserDroitsMensuels.do">AutorisationDroitsController</prop>
- 				
-				<!-- Attribution --> 				
-				<prop key="/intranet/attribution/saisirAttribution.do">SaisieAttributionController</prop>
-				<prop key="/intranet/attribution/txt/saisirAttribution.do">SaisieAttributionTxtController</prop>
-				<prop key="/gpe/attribution/consulterAttribution.do">ConsultationAttributionController</prop>
-				<prop key="/intranet/attribution/cloturerAttribution.do">ClotureAttributionController</prop>
-				<prop key="/gpe/attribution/txt/consulterAttribution.do">ConsultationAttributionTxtController</prop>				
-				<prop key="/intranet/attribution/consulterUnitesProgrammees.do">ConsultationUnitesProgrammeesController</prop>
-				<prop key="/intranet/attribution/consulterUnitesCalculees.do">ConsultationUnitesAttributionController</prop>
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+    </bean>
 
-				<!--  Affectation -->
-				<prop key="/gpe/affectation/affecterUnites.do">AffectationController</prop>				
-				<prop key="/gpe/affectation/txt/affecterUnites.do">AffectationTxtController</prop>				
-				
-				<!--  Restitution -->
-				<prop key="/gpe/restitution/restituerUnites.do">RestitutionController</prop>				
-				<prop key="/gpe/restitution/txt/restituerUnites.do">RestitutionTxtController</prop>				
-				
-				<!-- Rattachement à un centre -->				
-				<prop key="/gpe/rattachement/selection.do">SelectionAutoEcoleController</prop>
-				<prop key="/gpe/rattachement/demanderRattachement.do">RattachementController</prop>			
-									
-				<!-- Validation d'une demande de detachement ou rattachement-->	
-				<prop key="/intranet/rattachement/validerRattachement.do">ValidationDemandesController</prop>
-				
-				<!-- Recherhce recevabilite candidat -->
-				<prop key="/gpe/candidat/rechercheRecevabilite.do">RechercheRecevabiliteController</prop>
-				<prop key="/gpe/candidat/txt/rechercheRecevabilite.do">RechercheRecevabiliteTxtController</prop>
-				
-				<!-- Options -->
-				<prop key="/gpe/option/poserOption.do">OptionsPoserController</prop>
-				<prop key="/intranet/option/validerOption.do">ValidationOptionController</prop>
-				<prop key="/gpe/option/txt/poserOption.do">OptionsPoserTxtController</prop>
-				
-			
-				<!-- Administration -->
-				<prop key="/intranet/parametres/gererParam.do">ParametresController</prop>
-				
-				<!-- Alertes -->
-				<prop key="/gpe/alertes/voirAlertes.do">AlertesController</prop>
-				
-				<!-- Gestion des erreurs -->
-				<prop key="/erreurs/exception.do">ExceptionsController</prop>
-				<prop key="/erreurs/gestionMail.do">ExceptionsGestionMail</prop>
-				<prop key="/erreurs/droit.do">ErreurDroit</prop>
-				<prop key="/erreurs/autoecole.do">ErreurAE</prop>
-				
-				<!-- Fonctionalites transverses -->
-				<prop key="/plan.do">Plan</prop>
-				<prop key="/aide.do">Aide</prop>
-				<prop key="/accessibilite.do">Accessibilite</prop>
-			</props>
-		</property>
-	</bean>
+    <bean id="tileConfigurer" class="org.springframework.web.servlet.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <value>/WEB-INF/tiles.xml</value>
+        </property>
+    </bean>
 
-	<!-- le résolveur de vues Tiles -->
-	<bean id="tilesViewResolver"
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="order" value="1"></property>
-		<property name="requestContextAttribute" value="requestContext"></property>
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles2.TilesView"></property>
-	</bean>
-
-	<bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
-		<property name="definitions">
-			<list>
-				<value>/WEB-INF/tiles/definitions/layout-tiles.xml</value>
-				<value>/WEB-INF/tiles/definitions/affectation.xml</value>
-				<value>/WEB-INF/tiles/definitions/attribution.xml</value>
-				<value>/WEB-INF/tiles/definitions/clotureAttribution.xml</value>
-				<value>/WEB-INF/tiles/definitions/rattachement.xml</value>
-				<value>/WEB-INF/tiles/definitions/reservation.xml</value>
-				<value>/WEB-INF/tiles/definitions/autorisationDroitsMenusels.xml</value>
-				<value>/WEB-INF/tiles/definitions/restitution.xml</value>
-				<value>/WEB-INF/tiles/definitions/erreurs.xml</value>
-				<value>/WEB-INF/tiles/definitions/option.xml</value>
-				<value>/WEB-INF/tiles/definitions/validerOption.xml</value>
-				<value>/WEB-INF/tiles/definitions/administration.xml</value>
-				<value>/WEB-INF/tiles/definitions/candidat.xml</value>
-				<value>/WEB-INF/tiles/definitions/alertes.xml</value>
-			</list>
-		</property>
-	</bean>
 
 </beans>

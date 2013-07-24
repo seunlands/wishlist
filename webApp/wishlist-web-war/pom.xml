@@ -36,11 +36,21 @@
 
 
 	<properties>
-		<tiles.version>2.0.6</tiles.version>
-		<tiles.servlet.version>2.1.2</tiles.servlet.version>
+		<tiles.version>3.0.1</tiles.version>
+        <jstl.version>1.2</jstl.version>
 	</properties>
 
 	<dependencies>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-extras</artifactId>
+            <version>${tiles.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.landocore.wishlist</groupId>
 			<artifactId>wishlist-web</artifactId>

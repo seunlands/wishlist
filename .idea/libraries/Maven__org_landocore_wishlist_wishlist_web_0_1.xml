@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.landocore.wishlist:wishlist-web:0.1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/landocore/wishlist/wishlist-web/0.1/wishlist-web-0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/landocore/wishlist/wishlist-web/0.1/wishlist-web-0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/landocore/wishlist/wishlist-web/0.1/wishlist-web-0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
