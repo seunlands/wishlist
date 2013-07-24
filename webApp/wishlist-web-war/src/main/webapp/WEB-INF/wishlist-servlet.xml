@@ -8,7 +8,7 @@
         <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
     </bean>
 
-    <bean id="tileConfigurer" class="org.springframework.web.servlet.tiles3.TilesConfigurer">
+    <bean id="tileConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions">
             <value>/WEB-INF/tiles.xml</value>
         </property>

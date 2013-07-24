@@ -4,7 +4,7 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.landocore.wishlist</groupId>
-	<artifactId>landocore-web-war-tools</artifactId>
+	<artifactId>wishlist-web-war-tools</artifactId>
 	<packaging>pom</packaging>
 	<version>0.1-SNAPSHOT</version>
 	<name>Liste de voeux</name>
@@ -78,7 +78,7 @@
 					<configuration>
 						<argLine>-XX:-UseSplitVerifier</argLine>
 					</configuration>
-				</plugin> 
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>		

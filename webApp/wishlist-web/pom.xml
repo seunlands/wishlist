@@ -13,10 +13,9 @@
 	</parent>
 
 	<properties>
-		<lang.version>2.3</lang.version>
 		<servlet.version>2.4</servlet.version>
-		<springweb.version>3.2.3.RELEASE</springweb.version>
-		<cerbere.version>2.4.2</cerbere.version>
+        <springweb.version>3.2.3.RELEASE</springweb.version>
+        <wishlist.version>0.1-SNAPSHOT</wishlist.version>
 	</properties>
 
 	<dependencies>
@@ -30,7 +29,13 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${springweb.version}</version>
         </dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.landocore.wishlist</groupId>
+            <artifactId>wishlist-bean</artifactId>
+            <version>${wishlist.version}</version>
+        </dependency>
+
+    </dependencies>
 
 	<build>
 		<finalName>wishlist-web</finalName>

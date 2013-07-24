@@ -1,4 +1,0 @@
-Madame, Monsieur,
-La demande de {0} concernant la qualification {1} du centre {2} a bien été {3}.
-	
-	

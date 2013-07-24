@@ -32,7 +32,12 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="landocore-web-war-tools" target="1.7" />
+      <module name="webApp" target="1.7" />
       <module name="wishlist" target="1.7" />
+      <module name="wishlist-bean" target="1.7" />
+      <module name="wishlist-business" target="1.7" />
+      <module name="wishlist-web" target="1.7" />
+      <module name="wishlist-web-war" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

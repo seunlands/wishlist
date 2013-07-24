@@ -28,6 +28,10 @@
 						<warSourceExcludes>META-INF\context.xml</warSourceExcludes>
 					</configuration>
 				</plugin>
+                <plugin>
+                    <groupId>org.mortbay.jetty</groupId>
+                    <artifactId>maven-jetty-plugin</artifactId>
+                </plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -41,6 +45,11 @@
 	</properties>
 
 	<dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-extras</artifactId>
@@ -63,8 +72,12 @@
 			<groupId>org.landocore.wishlist</groupId>
 			<artifactId>wishlist-bean</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 	</dependencies>
-
 
 	
 </project>
