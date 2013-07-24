@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99eaaafc-a827-4a47-9bd6-614660a495dc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webApp/wishlist-web/src/main/java/org/landocore/web/action/index/IndexController.java" afterPath="$PROJECT_DIR$/webApp/wishlist-web/src/main/java/org/landocore/web/action/index/IndexController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webApp/wishlist-bean/src/main/java/org/landocore/wishlist/beans/Personne.java" afterPath="$PROJECT_DIR$/webApp/wishlist-bean/src/main/java/org/landocore/wishlist/beans/Personne.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webApp/wishlist-web/pom.xml" afterPath="$PROJECT_DIR$/webApp/wishlist-web/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webApp/wishlist-web-war/pom.xml" afterPath="$PROJECT_DIR$/webApp/wishlist-web-war/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/template.jsp" afterPath="$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/template.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles.xml" afterPath="$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/wishlist-servlet.xml" afterPath="$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/wishlist-servlet.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webApp/wishlist-web-war/wishlist-web-war.iml" afterPath="$PROJECT_DIR$/webApp/wishlist-web-war/wishlist-web-war.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webApp/wishlist-web/wishlist-web.iml" afterPath="$PROJECT_DIR$/webApp/wishlist-web/wishlist-web.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/common/footer.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/common/meta.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="wishlist.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -20,6 +14,8 @@
     <file path="/fragment.java" changelist="99eaaafc-a827-4a47-9bd6-614660a495dc" time="1374522036049" ignored="false" />
     <file path="/wishlist-servlet.xml" changelist="99eaaafc-a827-4a47-9bd6-614660a495dc" time="1374555289937" ignored="false" />
     <file path="/IndexController.java" changelist="99eaaafc-a827-4a47-9bd6-614660a495dc" time="1374555681552" ignored="false" />
+    <file path="/footer.jsp" changelist="99eaaafc-a827-4a47-9bd6-614660a495dc" time="1374641067370" ignored="false" />
+    <file path="/meta.jsp" changelist="99eaaafc-a827-4a47-9bd6-614660a495dc" time="1374641074904" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,15 +103,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webApp/wishlist-web/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="40" selection-start="1125" selection-end="1125" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="wishlist-servlet.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/wishlist-servlet.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -134,10 +121,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="template.jsp" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="template.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/template.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="7" selection-start="468" selection-end="468" vertical-scroll-proportion="0.39589444">
+            <state line="18" column="7" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="meta.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/common/meta.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="8" selection-start="8" selection-end="8" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="footer.jsp" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/common/footer.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="10" selection-start="10" selection-end="10" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -190,6 +195,8 @@
         <option value="$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/template.jsp" />
         <option value="$PROJECT_DIR$/webApp/wishlist-web/pom.xml" />
         <option value="$PROJECT_DIR$/webApp/wishlist-web/src/main/java/org/landocore/web/action/index/IndexController.java" />
+        <option value="$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/common/footer.jsp" />
+        <option value="$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/common/meta.jsp" />
       </list>
     </option>
   </component>
@@ -384,6 +391,48 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tiles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wishlist" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wishlist" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wishlist-web-war" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tiles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -741,20 +790,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/webApp/wishlist-web-war/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webApp/wishlist-web/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webApp/wishlist-business/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="4" selection-start="596" selection-end="596" vertical-scroll-proportion="0.0">
@@ -846,7 +881,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/template.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="7" selection-start="468" selection-end="468" vertical-scroll-proportion="0.39589444">
+        <state line="18" column="7" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/common/meta.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="8" selection-start="8" selection-end="8" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/wishlist-web-war/src/main/webapp/WEB-INF/tiles/common/footer.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="10" selection-start="10" selection-end="10" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
