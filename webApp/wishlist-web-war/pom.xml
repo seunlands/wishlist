@@ -31,6 +31,10 @@
                 <plugin>
                     <groupId>org.mortbay.jetty</groupId>
                     <artifactId>maven-jetty-plugin</artifactId>
+                    <version>7.0.0.pre5</version>
+                    <configuration>
+                        <context>/wishlist</context>
+                    </configuration>
                 </plugin>
 			</plugins>
 		</pluginManagement>

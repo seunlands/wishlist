@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/init/accueil.do", method = RequestMethod.GET)
     public ModelAndView indexHandler(){
         return new ModelAndView("/index", "user", new Personne());
     }
