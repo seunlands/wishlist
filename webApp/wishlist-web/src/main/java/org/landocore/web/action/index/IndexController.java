@@ -14,11 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
+@RequestMapping("/accueil")
 public class IndexController {
 
-    @RequestMapping("/hello")
+    @RequestMapping("/init.do")
     public ModelAndView helloWorld(){
         String message = "Hello world !";
-        return new ModelAndView("helle", "message", message);
+        return new ModelAndView("/index", "message", message);
     }
 }

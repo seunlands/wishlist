@@ -12,10 +12,10 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>wishlist</servlet-name>
-        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.do</url-pattern>
     </servlet-mapping>
     
     <welcome-file-list>
-        <welcome-file>jsp/index.jsp</welcome-file>
+        <welcome-file>/accueil/init.do</welcome-file>
     </welcome-file-list>
 </web-app>

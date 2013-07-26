@@ -146,10 +146,11 @@
                     <artifactId>jetty-maven-plugin</artifactId>
                     <version>8.1.11.v20130520</version>
                     <configuration>
-                        <contextPath>/wishlist</contextPath>
+                        <webApp>
+                            <contextPath>/wishlist</contextPath>
+                        </webApp>
+                        <war>${basedir}/wishlist-web-war/target/wishlist.war</war>
                         <scanIntervalSeconds>10</scanIntervalSeconds>
-                        <webAppSourceDirectory>${basedir}/wishlist-web-war/src/main/webapp</webAppSourceDirectory>
-
                     </configuration>
                 </plugin>
 			</plugins>
