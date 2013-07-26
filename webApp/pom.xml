@@ -56,7 +56,12 @@
 	</dependencies>
 	
 	<dependencyManagement>
-			<dependencies>
+		<dependencies>
+            <dependency>
+                <groupId>postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgre.version}</version>
+            </dependency>
 
 			<dependency>
 				<groupId>org.dbunit</groupId>
