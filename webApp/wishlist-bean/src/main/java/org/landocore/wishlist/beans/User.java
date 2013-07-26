@@ -13,13 +13,21 @@ import java.io.Serializable;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name="wl_personne")
-public class Personne implements Serializable{
+@Table(name="wl_user")
+public class User implements Serializable{
 
     @Id
     private String email;
 
-    private String nom;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String name;
 
     public String getEmail() {
         return email;
@@ -29,11 +37,4 @@ public class Personne implements Serializable{
         this.email = email;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getNom() {
-        return nom;
-    }
 }

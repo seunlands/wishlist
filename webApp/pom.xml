@@ -33,6 +33,7 @@
 		<aspect.version>1.7.3</aspect.version>
 		<jstl.version>1.1.2</jstl.version>
 		<springtest.version>3.2.3.RELEASE</springtest.version>
+        <spring.security.version>3.1.4.RELEASE</spring.security.version>
 		<dbunit.version>2.4.9</dbunit.version>
 	</properties>
 	
@@ -92,7 +93,32 @@
 				<artifactId>spring</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-			<dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-openid</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openid4java</groupId>
+                <artifactId>openid4java</artifactId>
+                <version>0.9.5</version>
+            </dependency>
+            <dependency>
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
 				<version>${log.version}</version>

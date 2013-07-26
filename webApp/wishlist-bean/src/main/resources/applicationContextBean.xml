@@ -9,7 +9,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="annotatedClasses">
             <list>
-                <value>org.landocore.wishlist.beans.Personne</value>
+                <value>org.landocore.wishlist.beans.User</value>
             </list>
         </property>
         <property name="hibernateProperties">
