@@ -1,5 +1,6 @@
 package org.landocore.wishlist.business.login;
 
+import org.landocore.wishlist.beans.login.User;
 import org.landocore.wishlist.business.authentication.AuthenticationUserDetails;
 
 /**

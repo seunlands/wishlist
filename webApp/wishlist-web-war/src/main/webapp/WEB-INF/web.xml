@@ -15,7 +15,7 @@
             /WEB-INF/applicationContext.xml
             classpath:applicationContextCommun.xml
             classpath:applicationContextBean.xml
-            classpath:applicationContextSecurity.xml
+            /WEB-INF/applicationContextSecurity.xml
         </param-value>
     </context-param>
     

@@ -16,8 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 
     @RequestMapping("/init.do")
-    public ModelAndView helloWorld(){
+    public ModelAndView init(){
         String message = "Hello world !";
         return new ModelAndView("/index", "message", message);
+    }
+
+
+    @RequestMapping("/admin.do")
+    public ModelAndView admin(){
+        return new ModelAndView("/admin", "message", "admin");
     }
 }

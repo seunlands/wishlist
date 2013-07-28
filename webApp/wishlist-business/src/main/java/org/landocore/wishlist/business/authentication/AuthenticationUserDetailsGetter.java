@@ -1,5 +1,13 @@
 package org.landocore.wishlist.business.authentication;
 
+import org.landocore.wishlist.beans.login.User;
+import org.landocore.wishlist.repositories.login.UserRepository;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.sql.rowset.spi.TransactionalWriter;
 
 /**
@@ -23,15 +31,15 @@ public class AuthenticationUserDetailsGetter implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException{
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
         User user = userRepository.findByLogin(username);
         throwExceptionIfNotFound(user, username);
         return new AuthenticationUserDetails(user);
     }
 
-    private void throwExceptionIfNotFound(User user, String login) {
+    private void throwExceptionIfNotFound(User user, String login) throws UsernameNotFoundException, DataAccessException {
         if(user == null){
-            throw new UserNameNotFoundException("User with login " + login + " has not been found.");
+            throw new UsernameNotFoundException("User with login " + login + " has not been found.");
         }
     }
 }

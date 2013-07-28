@@ -9,7 +9,8 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="annotatedClasses">
             <list>
-                <value>org.landocore.wishlist.beans.User</value>
+                <value>org.landocore.wishlist.beans.login.User</value>
+                <value>org.landocore.wishlist.beans.login.Authority</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -26,6 +27,8 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="userRepository" class="org.landocore.wishlist.repositories.login.UserRepositoryImpl"/>
 
 
 </beans>
