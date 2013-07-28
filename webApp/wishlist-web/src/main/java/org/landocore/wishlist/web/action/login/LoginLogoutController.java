@@ -1,4 +1,4 @@
-package org.landocore.web.action.login;
+package org.landocore.wishlist.web.action.login;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;

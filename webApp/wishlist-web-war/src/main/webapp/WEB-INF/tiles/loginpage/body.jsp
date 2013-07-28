@@ -1,4 +1,4 @@
-<h1>Login</h1>7
+<h1>Login</h1>
 <div id="login-error">${error}</div>
 
 <form action="../j_spring_security_check" method="post" onsubmit="forceHttpsOnSubmit(this)" >

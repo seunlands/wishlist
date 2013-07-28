@@ -12,6 +12,8 @@
         <tiles:insertAttribute name="meta" />
     </head>
     <body>
+        <h1>WishList 0.1</h1>
+
         <div id="header">
             <tiles:insertAttribute name="header" />
         </div>

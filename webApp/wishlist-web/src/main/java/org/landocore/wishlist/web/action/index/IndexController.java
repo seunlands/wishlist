@@ -1,4 +1,4 @@
-package org.landocore.web.action.index;
+package org.landocore.wishlist.web.action.index;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
