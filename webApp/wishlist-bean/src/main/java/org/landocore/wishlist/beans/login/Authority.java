@@ -23,7 +23,7 @@ public class Authority implements Serializable{
     @Column(name = "authority_id")
     private Long id;
 
-    @Column(name="authority_name")
+    @Column(name="authority_name", length = 10)
     private String name;
 
     public Long getId() {

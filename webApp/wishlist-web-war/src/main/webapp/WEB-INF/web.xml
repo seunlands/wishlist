@@ -14,6 +14,7 @@
         <param-value>
             /WEB-INF/applicationContext.xml
             classpath:applicationContextCommun.xml
+            classpath:applicationContextBusiness.xml
             classpath:applicationContextBean.xml
             /WEB-INF/applicationContextSecurity.xml
         </param-value>
@@ -38,7 +39,7 @@
         <servlet-name>wishlist</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-    
+
     <welcome-file-list>
         <welcome-file>/accueil/init.do</welcome-file>
     </welcome-file-list>

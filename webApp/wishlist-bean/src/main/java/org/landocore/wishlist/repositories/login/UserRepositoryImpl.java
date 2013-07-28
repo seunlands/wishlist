@@ -1,5 +1,6 @@
 package org.landocore.wishlist.repositories.login;
 
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.landocore.wishlist.beans.login.User;
@@ -19,8 +20,8 @@ import java.util.List;
 @Repository
 public class UserRepositoryImpl extends AbstractDaoImpl<User, Long> implements UserRepository{
 
-    protected UserRepositoryImpl(){
-        super(User.class);
+    protected UserRepositoryImpl(SessionFactory sessionFactory){
+        super(User.class, sessionFactory);
     }
 
 

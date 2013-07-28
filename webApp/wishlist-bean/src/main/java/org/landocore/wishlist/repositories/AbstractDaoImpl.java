@@ -23,11 +23,11 @@ public class AbstractDaoImpl<E, I extends Serializable> implements AbstractDao<E
 
     private Class<E> entityClass;
 
-    public AbstractDaoImpl(Class<E> entityClass){
+    public AbstractDaoImpl(Class<E> entityClass, SessionFactory sessionFactory){
         this.entityClass = entityClass;
+        this.sessionFactory = sessionFactory;
     }
 
-    @Autowired
     private SessionFactory sessionFactory;
 
     public Session getCurrentSession(){
