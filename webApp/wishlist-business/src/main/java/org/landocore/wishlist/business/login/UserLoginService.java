@@ -21,4 +21,6 @@ public interface UserLoginService {
     boolean login(String login, String password);
     void logout();
     boolean isLoggedIn();
+
+    String resetPassword(String username);
 }

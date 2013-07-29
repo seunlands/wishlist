@@ -8,4 +8,17 @@
         <property name="location" value="classpath:wishlist.properties" />
     </bean>
 
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="localhost" />
+    </bean>
+
+    <bean id="templatePasswordEmail" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="Do-Not-Reply@wishlist.org" />
+        <property name="subject" value="[WishList] New password request" />
+    </bean>
+
+    <bean id="emailBundle" class="java.util.ResourceBundle" factory-method="getBundle">
+        <constructor-arg index="0" value="wishlist-emails" type="java.lang.String"/>
+    </bean>
+
 </beans>

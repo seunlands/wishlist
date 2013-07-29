@@ -2,13 +2,21 @@ package org.landocore.wishlist.business.login;
 
 import org.landocore.wishlist.beans.login.User;
 import org.landocore.wishlist.business.authentication.AuthenticationUserDetails;
+import org.landocore.wishlist.business.util.StringUtils;
 import org.landocore.wishlist.repositories.login.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.ReflectionSaltSource;
+import org.springframework.security.authentication.dao.SaltSource;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,12 +25,28 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * Time: 06:26
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class SpringSecurityUserLoginService implements UserLoginService {
 
 
     private UserRepository userRepository;
     private AuthenticationManager authenticationManager;
     private final String internalHashKeyForAutomaticLoginAfterRegistration = "magicInternalHashKeyForAutomaticLoginAfterRegistration";
+
+
+    private SaltSource saltSource;
+
+    @Autowired
+    public void setReflectionSaltSource(SaltSource saltSource){
+        this.saltSource = saltSource;
+    }
+
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder){
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public SpringSecurityUserLoginService(UserRepository userRepository, AuthenticationManager authenticationManager){
         this.userRepository = userRepository;
@@ -88,6 +112,21 @@ public class SpringSecurityUserLoginService implements UserLoginService {
     public boolean isLoggedIn() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return isAuthenticated(authentication);
+    }
+
+    @Override
+    public String resetPassword(String username){
+        User user = userRepository.findByLogin(username);
+        String newPassword = null;
+        if(user!=null){
+            newPassword = StringUtils.generateRandomPassword(8);
+            UserDetails userDetails = new AuthenticationUserDetails(user);
+            Object salt = saltSource.getSalt(userDetails);
+            String password = passwordEncoder.encodePassword(newPassword, salt);
+            user.setPassword(password);
+            userRepository.saveOrUpdate(user);
+        }
+        return newPassword;
     }
 
     private boolean isAuthenticated(Authentication authentication){
