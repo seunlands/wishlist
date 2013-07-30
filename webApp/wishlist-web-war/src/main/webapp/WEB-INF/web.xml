@@ -10,12 +10,17 @@
     </listener>
 
     <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.config.java.context.JavaConfigWebApplicationContext</param-value>
+    </context-param>
+
+    <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
+            classpath:applicationContextBean.xml
             /WEB-INF/applicationContext.xml
             classpath:applicationContextCommun.xml
             classpath:applicationContextBusiness.xml
-            classpath:applicationContextBean.xml
             /WEB-INF/applicationContextSecurity.xml
         </param-value>
     </context-param>

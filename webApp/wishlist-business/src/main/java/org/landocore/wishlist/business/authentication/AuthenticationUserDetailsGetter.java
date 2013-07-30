@@ -2,10 +2,12 @@ package org.landocore.wishlist.business.authentication;
 
 import org.landocore.wishlist.beans.login.User;
 import org.landocore.wishlist.repositories.login.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.rowset.spi.TransactionalWriter;
@@ -17,16 +19,17 @@ import javax.sql.rowset.spi.TransactionalWriter;
  * Time: 23:51
  * To change this template use File | Settings | File Templates.
  */
+@Service("userDetailsService")
 public class AuthenticationUserDetailsGetter implements UserDetailsService {
 
     private UserRepository userRepository;
-
-    protected AuthenticationUserDetailsGetter(){
-
+    @Autowired
+    public void setUserRepository(UserRepository userRepository){
+        this.userRepository = userRepository;
     }
 
-    public AuthenticationUserDetailsGetter(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public AuthenticationUserDetailsGetter(){
+
     }
 
     @Override

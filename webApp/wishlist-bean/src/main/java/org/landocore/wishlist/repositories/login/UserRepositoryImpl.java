@@ -17,10 +17,10 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 
-@Repository
+@Repository("userRepository")
 public class UserRepositoryImpl extends AbstractDaoImpl<User, Long> implements UserRepository{
 
-    protected UserRepositoryImpl(SessionFactory sessionFactory){
+    public UserRepositoryImpl(SessionFactory sessionFactory){
         super(User.class, sessionFactory);
     }
 

@@ -7,6 +7,7 @@ import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,13 +20,14 @@ import java.util.Map;
  * Time: 07:31
  * To change this template use File | Settings | File Templates.
  */
+@Repository()
 public class AbstractDaoImpl<E, I extends Serializable> implements AbstractDao<E,I> {
 
     private Class<E> entityClass;
 
-    public AbstractDaoImpl(Class<E> entityClass, SessionFactory sessionFactory){
-        this.entityClass = entityClass;
+    protected AbstractDaoImpl(Class<E> entityClass, SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
+        this.entityClass = entityClass;
     }
 
     private SessionFactory sessionFactory;
