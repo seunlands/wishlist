@@ -23,7 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @ComponentScan(basePackages = {"org.landocore.wishlist.web"})
 @EnableWebMvc
-@Import({DataConfig.class})
+@Import({DataConfig.class, SecurityConfig.class})
 public class ApplicationContext extends WebMvcConfigurerAdapter {
 
     @Bean
