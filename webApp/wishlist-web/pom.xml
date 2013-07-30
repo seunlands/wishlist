@@ -13,7 +13,6 @@
 	</parent>
 
 	<properties>
-		<servlet.version>2.4</servlet.version>
         <springweb.version>3.2.3.RELEASE</springweb.version>
         <wishlist.version>0.1-SNAPSHOT</wishlist.version>
 	</properties>

@@ -9,6 +9,10 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
+    <bean id="userLoginService" class="org.landocore.wishlist.business.login.SpringSecurityUserLoginService" />
+
+    <bean id="userService" class="org.landocore.wishlist.business.user.UserServiceImpl" />
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
 

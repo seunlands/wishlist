@@ -9,10 +9,8 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.dao.ReflectionSaltSource;
 import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,11 +26,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class SpringSecurityUserLoginService implements UserLoginService {
 
-
-    private UserRepository userRepository;
-    private AuthenticationManager authenticationManager;
     private final String internalHashKeyForAutomaticLoginAfterRegistration = "magicInternalHashKeyForAutomaticLoginAfterRegistration";
 
+    private UserRepository userRepository;
+    @Autowired
+    public void setUserRepository(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    public void setAuthenticationManager(AuthenticationManager authenticationManager){
+        this.authenticationManager = authenticationManager;
+    }
 
     private SaltSource saltSource;
 
@@ -46,11 +52,6 @@ public class SpringSecurityUserLoginService implements UserLoginService {
     @Autowired
     public void setPasswordEncoder(PasswordEncoder passwordEncoder){
         this.passwordEncoder = passwordEncoder;
-    }
-
-    public SpringSecurityUserLoginService(UserRepository userRepository, AuthenticationManager authenticationManager){
-        this.userRepository = userRepository;
-        this.authenticationManager = authenticationManager;
     }
 
     @Override

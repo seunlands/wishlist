@@ -79,9 +79,9 @@ public class LoginLogoutController {
     public String getLoginPage(@RequestParam(value = "error", required = false) boolean error, ModelMap model){
         logger.debug("Received request to show login page");
 
-        if(error == true){
+        if (error){
             model.put("error", "You have enter invalid credentials");
-        }else{
+        } else {
             model.put("error", "");
         }
 
@@ -101,7 +101,7 @@ public class LoginLogoutController {
         logger.debug("Received request to reset password for user " + forgottenPasswordForm.getUsername());
 
         String password = userLoginService.resetPassword(forgottenPasswordForm.getUsername());
-        if(password!=null){
+        if (password != null){
             SimpleMailMessage message = new SimpleMailMessage(this.templateMessage);
             User user = userService.getUserByUsername(forgottenPasswordForm.getUsername());
             message.setTo(user.getEmail());
@@ -111,7 +111,7 @@ public class LoginLogoutController {
             message.setText(body);
             this.mailSender.send(message);
 
-        }else{
+        } else {
             logger.debug("user " + forgottenPasswordForm.getUsername() + " not found");
         }
 
