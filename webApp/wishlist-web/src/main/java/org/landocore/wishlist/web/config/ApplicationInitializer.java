@@ -1,6 +1,5 @@
 package org.landocore.wishlist.web.config;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -33,7 +32,7 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
         //declare dispatch servlet
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet());
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("*.do");
 

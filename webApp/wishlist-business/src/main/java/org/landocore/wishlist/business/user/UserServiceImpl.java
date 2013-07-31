@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * Time: 19:37
  * To change this template use File | Settings | File Templates.
  */
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;

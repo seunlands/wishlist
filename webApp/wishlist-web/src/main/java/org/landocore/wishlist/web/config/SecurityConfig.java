@@ -4,6 +4,7 @@ import org.landocore.wishlist.business.authentication.AuthenticationUserDetailsG
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.AffirmativeBased;
@@ -28,7 +29,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Configuration
-public class SecurityConfig  {
+@ImportResource("/WEB-INF/applicationContextSecurity.xml")
+public class SecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;

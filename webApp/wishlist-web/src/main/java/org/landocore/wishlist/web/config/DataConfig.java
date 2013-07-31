@@ -4,7 +4,9 @@ import org.hibernate.SessionFactory;
 import org.landocore.wishlist.repositories.login.UserRepository;
 import org.landocore.wishlist.repositories.login.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -28,18 +30,26 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DataConfig extends WebMvcConfigurerAdapter {
 
+    @Value("${db.url}")
+    private String url;
 
-    @Autowired
-    private Environment env;
+    @Value("${db.driver}")
+    private String driver;
+
+    @Value("${db.username}")
+    private String username;
+
+    @Value("${db.password}")
+    private String password;
 
     @Bean
     public DataSource dataSource(){
         try{
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
-            dataSource.setDriverClassName(env.getRequiredProperty("db.driver"));
-            dataSource.setUrl(env.getRequiredProperty("db.url"));
-            dataSource.setUsername(env.getRequiredProperty("db.username"));
-            dataSource.setPassword(env.getRequiredProperty("db.password"));
+            dataSource.setDriverClassName(driver);
+            dataSource.setUrl(url);
+            dataSource.setUsername(username);
+            dataSource.setPassword(password);
             return dataSource;
         } catch (IllegalStateException e){
             throw new RuntimeException(e);
@@ -69,8 +79,8 @@ public class DataConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public UserRepository userRepository(){
-        UserRepository userRepository = new UserRepositoryImpl(sessionFactory());
+    public UserRepositoryImpl userRepository(){
+        UserRepositoryImpl userRepository = new UserRepositoryImpl(sessionFactory());
         return userRepository;
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,17 +23,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 
 @Configuration
-@ComponentScan(basePackages = {"org.landocore.wishlist.web"})
+@ComponentScan(basePackages = {"org.landocore.wishlist.web", "org.landocore.wishlist.business"})
 @EnableWebMvc
 @Import({DataConfig.class, SecurityConfig.class})
 public class ApplicationContext extends WebMvcConfigurerAdapter {
-
-    @Bean
-    public static DriverManagerDataSource dataSource(){
-        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.
-    }
-
 
     @Bean
     public static PropertyPlaceholderConfigurer properties(){
@@ -41,6 +36,20 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
         properties.setLocations(resources);
         properties.setIgnoreUnresolvablePlaceholders(true);
         return properties;
+    }
+
+    @Bean
+    public UrlBasedViewResolver urlBasedViewResolver(){
+        UrlBasedViewResolver urlBasedViewResolver = new UrlBasedViewResolver();
+        urlBasedViewResolver.setViewClass(TilesConfigurer.class);
+        return urlBasedViewResolver;
+    }
+
+    @Bean
+    public TilesConfigurer tilesConfigurer(){
+        TilesConfigurer tilesConfigurer = new TilesConfigurer();
+        tilesConfigurer.setDefinitions(new String[]{"/WEB-INF/tiles.xml"});
+        return tilesConfigurer;
     }
 
 }

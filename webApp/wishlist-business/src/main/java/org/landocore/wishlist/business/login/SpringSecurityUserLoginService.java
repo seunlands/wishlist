@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
  * Time: 06:26
  * To change this template use File | Settings | File Templates.
  */
-@Service
+@Service("userLoginService")
 public class SpringSecurityUserLoginService implements UserLoginService {
 
     private final String internalHashKeyForAutomaticLoginAfterRegistration = "magicInternalHashKeyForAutomaticLoginAfterRegistration";
