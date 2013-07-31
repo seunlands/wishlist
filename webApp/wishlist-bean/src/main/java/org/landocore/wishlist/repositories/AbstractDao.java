@@ -10,17 +10,43 @@ import java.util.Map;
  * User: seun
  * Date: 28/07/13
  * Time: 07:39
- * To change this template use File | Settings | File Templates.
+ * Abstract class for all the repositories.
+ * @param <E> entity class for the repository
+ * @param <I> class on the primary id
+ *
  */
-public interface AbstractDao<E,I> {
+public interface AbstractDao<E, I> {
 
+    /**
+     * finds the entity E by its it.
+     * @param id
+     * @return
+     */
     E findById(I id);
 
+    /**
+     * save the entity.
+     * @param entity
+     */
     void saveOrUpdate(E entity);
 
+    /**
+     * deletes the entity.
+     * @param entity
+     */
     void delete(E entity);
 
+    /**
+     * finds the entities by the criterion.
+     * @param criterion
+     * @return
+     */
     List findByCriteria(Criterion criterion);
 
-    List findByCriteres(Map<String, Object> criteres);
+    /**
+     * finds the entities by the criteria map.
+     * @param criteria
+     * @return
+     */
+    List findByCriteria(Map<String, Object> criteria);
 }

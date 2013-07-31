@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -116,6 +117,7 @@ public class SpringSecurityUserLoginService implements UserLoginService {
     }
 
     @Override
+    @Transactional
     public String resetPassword(String username){
         User user = userRepository.findByLogin(username);
         String newPassword = null;

@@ -1,6 +1,12 @@
 package org.landocore.wishlist.beans.login;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,98 +15,164 @@ import java.util.List;
  * User: seun
  * Date: 22/07/13
  * Time: 21:35
- * To change this template use File | Settings | File Templates.
+ * Entity representing the user. Table wl_user.
  */
 @Entity
-@Table(name="wl_user")
-public class User implements Serializable{
+@Table(name = "wl_user")
+public class User implements Serializable {
 
+    /**
+     * Id of the user.
+     */
     @Id
     @Column(name = "user_id")
     private Long id;
 
+    /**
+     * username of the user.
+     */
     @Column(name = "username", nullable = false, length = 30)
     private String username;
 
+    /**
+     * email of the user.
+     */
     @Column(name = "email", length = 50)
     private String email;
 
+    /**
+     * password of the user
+     */
     @Column(name = "password", nullable = false, length = 256)
     private String password;
 
+    /**
+     * status of the account
+     */
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
-    @ManyToMany(targetEntity = org.landocore.wishlist.beans.login.Authority.class)
+    /**
+     * List of authorities of the user
+     */
+    @ManyToMany(targetEntity =
+            org.landocore.wishlist.beans.login.Authority.class)
     @JoinTable(name = "wl_tr_user_authority",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
-        inverseJoinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "authority_id")})
+        joinColumns = { @JoinColumn(name = "user_id",
+                referencedColumnName = "user_id") },
+        inverseJoinColumns = { @JoinColumn(name = "authority_id",
+                referencedColumnName = "authority_id") })
     private List<Authority> listAuthorities;
 
-
-    public String getEmail(){
+    /**
+     * @return the Email of the user
+     */
+    public final String getEmail(){
         return email;
     }
 
-    public void setEmail(String email){
+    /**
+     * sets the email
+     * @param pEmail
+     */
+    public final void setEmail(final String pEmail){
         this.email = email;
     }
 
 
-    public Long getId() {
+    /**
+     * @return id of the user
+     */
+    public final Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    /**
+     * sets the id of the user
+     * @param pId
+     */
+    public final void setId(final Long pId) {
+        this.id = pId;
     }
 
-    public String getUsername() {
+    /**
+     * @return  the user's username
+     */
+    public final String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    /**
+     * sets the username
+     * @param pUsername
+     */
+    public final void setUsername(final String pUsername) {
         this.username = username;
     }
 
-    public String getPassword() {
+    /**
+     *
+     * @return the user's password
+     */
+    public final String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    /**
+     * sets the password
+     * @param pPassword
+     */
+    public final void setPassword(final String pPassword) {
+        this.password = pPassword;
     }
 
-    public boolean isEnabled() {
+    /**
+     *
+     * @return the user enabled status
+     */
+    public final boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    /**
+     * sets status of the account
+     * @param pEnabled
+     */
+    public final void setEnabled(final boolean pEnabled) {
+        this.enabled = pEnabled;
     }
 
-    public List<Authority> getListAuthorities() {
+    /**
+     *
+     * @return Authorities of the user
+     */
+    public final List<Authority> getListAuthorities() {
         return listAuthorities;
     }
 
-    public void setListAuthorities(List<Authority> listAuthorities) {
-        this.listAuthorities = listAuthorities;
+    /**
+     * set the autorities of the user
+     * @param pListAuthorities
+     */
+    public final void setListAuthorities(final List<Authority> pListAuthorities) {
+        this.listAuthorities = pListAuthorities;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-
-        if (!username.equals(user.username)) return false;
-
-        return true;
+        return !username.equals(user.username);
     }
 
     @Override
-    public int hashCode() {
-        return 13 * username.hashCode();
+    public final int hashCode() {
+        int prime = 13;
+        return prime * username.hashCode();
     }
 }

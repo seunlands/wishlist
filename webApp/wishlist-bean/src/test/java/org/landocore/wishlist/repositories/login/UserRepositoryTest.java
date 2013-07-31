@@ -16,13 +16,12 @@ import javax.transaction.Transaction;
  * User: seun
  * Date: 28/07/13
  * Time: 16:22
- * To change this template use File | Settings | File Templates.
+ * JUnit for user repo
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:applicationContextBean-test.xml"})
 @Transactional
-public class userRepositoryTest extends AbstractJUnit4SpringContextTests {
+public class UserRepositoryTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
     protected UserRepository userRepository;

@@ -8,14 +8,36 @@ import org.landocore.wishlist.repositories.AbstractDao;
  * User: seun
  * Date: 28/07/13
  * Time: 07:51
- * To change this template use File | Settings | File Templates.
+ * Interface for user repository.
  */
-public interface UserRepository extends AbstractDao<User, Long>{
+public interface UserRepository extends AbstractDao<User, Long> {
 
+    /**
+     * Return the user by the username.
+     * @param login
+     * @return
+     */
     User findByLogin(String login);
+
+    /**
+     * Saves the user.
+     * @param user
+     * @return
+     */
     User save(User user);
+
+    /**
+     * find the user by id.
+     * @param userId
+     * @return
+     */
     User findById(Long userId);
+
+    /**
+     * find the user by email.
+     * @param email
+     * @return
+     */
     User findByEmail(String email);
-    User findByLoginOpenId(String loginOpenId);
-    User findByFacebookId(String facebookId);
+
 }

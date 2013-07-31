@@ -11,34 +11,77 @@ import java.io.Serializable;
  * User: seun
  * Date: 28/07/13
  * Time: 11:15
- * To change this template use File | Settings | File Templates.
+ * Entity representing the authorities the user can have. table wl_authority
  */
 
 
 @Entity
 @Table(name = "wl_authority")
-public class Authority implements Serializable{
+public class Authority implements Serializable {
 
+    /**
+     * id of the entity.
+     */
     @Id
     @Column(name = "authority_id")
     private Long id;
 
-    @Column(name="authority_name", length = 10)
+    /**
+     * the name of the authority.
+     */
+    @Column(name = "authority_name", length = 10)
     private String name;
 
-    public Long getId() {
+    /**
+     * returns the ID.
+     * @return
+     */
+    public final Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    /**
+     * sets the ID.
+     * @param pId
+     */
+    public final void setId(final Long pId) {
+        this.id = pId;
     }
 
-    public String getName() {
+    /**
+     * return the name.
+     * @return
+     */
+    public final String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * sets the name.
+     * @param pName
+     */
+    public final void setName(final String pName) {
+        this.name = pName;
+    }
+
+
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Authority authority = (Authority) o;
+        return name != null && name.equals(authority.name);
+    }
+
+    @Override
+    public final int hashCode() {
+        if (name == null) {
+            return 0;
+        }
+        return name.hashCode();
     }
 }

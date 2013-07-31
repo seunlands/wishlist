@@ -57,7 +57,7 @@ public class DataConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public SessionFactory sessionFactory(){
+    public LocalSessionFactoryBean sessionFactory(){
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setAnnotatedPackages(new String[]{"org.landocore.wishlist.beans"});
@@ -68,19 +68,19 @@ public class DataConfig extends WebMvcConfigurerAdapter {
         props.put("hibernate.hbm2ddl.auto", "update");
         sessionFactory.setHibernateProperties(props);
 
-        return sessionFactory.getObject();
+        return sessionFactory;
     }
 
     @Bean
     public HibernateTransactionManager transactionManager(){
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory());
+        transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
     }
 
     @Bean
     public UserRepositoryImpl userRepository(){
-        UserRepositoryImpl userRepository = new UserRepositoryImpl(sessionFactory());
+        UserRepositoryImpl userRepository = new UserRepositoryImpl(sessionFactory().getObject());
         return userRepository;
     }
 }
