@@ -20,14 +20,13 @@ import javax.transaction.Transaction;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
+@ContextConfiguration(classes = {org.landocore.wishlist.repositories.DataTestConfig.class})
 public class UserRepositoryTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
     protected UserRepository userRepository;
 
     @Test
-    @Ignore
     public void test(){
         userRepository.findById(1L);
     }

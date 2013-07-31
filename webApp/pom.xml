@@ -200,7 +200,32 @@
                                 <keyPassword>jetty6</keyPassword>
                             </connector>
                         </connectors>
+                        <systemProperties>
+                            <systemProperty>
+                                <name>log4j.configuration</name>
+                                <value>${basedir}/log4j.jetty.properties</value>
+                            </systemProperty>
+                        </systemProperties>
                     </configuration>
+<!--
+                    <dependencies>
+                        <dependency>
+                            <groupId>log4j</groupId>
+                            <artifactId>log4j</artifactId>
+                            <version>1.2.17</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-api</artifactId>
+                            <version>1.7.5</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-log4j12</artifactId>
+                            <version>1.7.5</version>
+                        </dependency>
+                    </dependencies>
+-->
                 </plugin>
 			</plugins>
 		</pluginManagement>
