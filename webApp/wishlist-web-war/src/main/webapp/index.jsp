@@ -1,1 +1,1 @@
-<META http-EQUIV="Refresh" CONTENT="Temps; url=accueil/accueil.jsp">
+<META http-EQUIV="Refresh" CONTENT="Temps; url=accueil/init.do">

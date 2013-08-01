@@ -1,5 +1,6 @@
 package org.landocore.wishlist.repositories.login;
 
+import org.hibernate.*;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,14 +21,14 @@ import javax.transaction.Transaction;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {org.landocore.wishlist.repositories.DataTestConfig.class})
+@ContextConfiguration(locations = "classpath:applicationContextBean-test.xml")
+@Transactional
 public class UserRepositoryTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
     protected UserRepository userRepository;
 
     @Test
-    @Ignore
     public void test(){
         userRepository.findById(1L);
     }

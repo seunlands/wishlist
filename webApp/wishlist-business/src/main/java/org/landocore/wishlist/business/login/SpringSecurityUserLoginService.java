@@ -84,7 +84,7 @@ public class SpringSecurityUserLoginService implements UserLoginService {
     public boolean login(Long userId) {
         boolean isLoginSuccessfull = false;
         User user = userRepository.findById(userId);
-        if(user != null){
+        if (user != null) {
             AuthenticationUserDetails userDetails = new AuthenticationUserDetails(user);
             final RememberMeAuthenticationToken rememberMeAuthenticationToken = new RememberMeAuthenticationToken(internalHashKeyForAutomaticLoginAfterRegistration, userDetails, null);
             rememberMeAuthenticationToken.setAuthenticated(true);

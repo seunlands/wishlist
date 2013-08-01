@@ -5,7 +5,7 @@ import org.landocore.wishlist.beans.login.User;
 import org.landocore.wishlist.business.login.UserLoginService;
 import org.landocore.wishlist.business.user.UserService;
 import org.landocore.wishlist.web.form.login.ForgottenPasswordForm;
-import org.landocore.wishlist.web.utils.EmailBundle;
+import org.landocore.wishlist.web.form.login.NewAccountForm;
 import org.landocore.wishlist.web.utils.LibelleUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.InputStream;
-import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.ResourceBundle;
 
 /**
@@ -27,56 +26,97 @@ import java.util.ResourceBundle;
  * User: seun
  * Date: 28/07/13
  * Time: 09:03
- * To change this template use File | Settings | File Templates.
+ * Controller for the actions of user management
  */
 
 @Controller
 @RequestMapping("/auth")
 public class LoginLogoutController {
 
+    /**
+     * the logger.
+     */
+    private static Logger logger = Logger.
+            getLogger(LoginLogoutController.class);
 
-    private static Logger logger = Logger.getLogger(LoginLogoutController.class);
-
-    //injection dependance spring
+    /**
+     * injection dependency spring userLoginService
+     */
     private UserLoginService userLoginService;
 
+    /**
+     * setter of userLoginService.
+     * @param pUserLoginService
+     */
     @Autowired
-    public void UserLoginService(UserLoginService userLoginService){
-        this.userLoginService = userLoginService;
+    public final void setUserLoginService(final UserLoginService pUserLoginService) {
+        this.userLoginService = pUserLoginService;
     }
 
+    /**
+     * the mailsender
+     */
     private MailSender mailSender;
 
+    /**
+     * sete of the mailsendre
+     * @param pMailSender
+     */
     @Autowired
-    public void setMailSender(MailSender mailSender){
-        this.mailSender = mailSender;
+    public final void setMailSender(final MailSender pMailSender) {
+        this.mailSender = pMailSender;
     }
 
+    /**
+     * the mail template
+     */
     private SimpleMailMessage templateMessage;
 
+    /**
+     * setter of the mail template
+     * @param pTemplateMessage
+     */
     @Autowired
-    public void setTemplateMessage(SimpleMailMessage templateMessage){
-        this.templateMessage = templateMessage;
+    public final void setTemplateMessage(final SimpleMailMessage pTemplateMessage) {
+        this.templateMessage = pTemplateMessage;
     }
 
+    /**
+     * the spring dep userService
+     */
     private UserService userService;
 
+    /**
+     * setter of the userService
+     * @param pUserService
+     */
     @Autowired
-    public void setUserService(UserService userService){
-        this.userService = userService;
+    public final void setUserService(final UserService pUserService) {
+        this.userService = pUserService;
     }
 
+    /**
+     * resource bundle regarding the emails
+     */
     private ResourceBundle emailBundle;
 
+    /**
+     * setter of the emailBundle
+     * @param pEmailBundle
+     */
     @Autowired
-    public void setEmailBundle(ResourceBundle emailBundle){
-        this.emailBundle = emailBundle;
+    public final void setEmailBundle(final ResourceBundle pEmailBundle) {
+        this.emailBundle = pEmailBundle;
     }
 
-
-
+    /**
+     * Request for login page
+     * @param error
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getLoginPage(@RequestParam(value = "error", required = false) boolean error, ModelMap model){
+    public final String getLoginPage(@RequestParam(value = "error", required = false) final boolean error, ModelMap model){
         logger.debug("Received request to show login page");
 
         if (error){
@@ -124,6 +164,13 @@ public class LoginLogoutController {
     public String getForgottenPasswordPage(ModelMap model){
         model.put("command", new ForgottenPasswordForm());
         return "/password";
+    }
+
+
+    @RequestMapping("/createaccount")
+    public String getNewAccountPage(ModelMap model){
+        model.put("command", new NewAccountForm());
+        return("/newaccount");
     }
 
 

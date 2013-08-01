@@ -9,21 +9,28 @@ import org.springframework.web.servlet.ModelAndView;
  * User: seun
  * Date: 23/07/13
  * Time: 06:58
- * To change this template use File | Settings | File Templates.
+ * Controller of the index page
  */
 @Controller
 @RequestMapping("/accueil")
 public class IndexController {
 
+    /**
+     * request received from /accueil/init.do.
+     * @return the next view
+     */
     @RequestMapping("/init.do")
-    public ModelAndView init(){
+    public final ModelAndView init() {
         String message = "Hello world !";
         return new ModelAndView("/index", "message", message);
     }
 
-
+    /**
+     * request received for /accueil/admin.do -> to be deleted.
+     * @return  the next view
+     */
     @RequestMapping("/admin.do")
-    public ModelAndView admin(){
+    public final ModelAndView admin() {
         return new ModelAndView("/admin", "message", "admin");
     }
 }
