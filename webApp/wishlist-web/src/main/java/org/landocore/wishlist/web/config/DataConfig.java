@@ -60,7 +60,11 @@ public class DataConfig extends WebMvcConfigurerAdapter {
     public LocalSessionFactoryBean sessionFactory(){
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setAnnotatedPackages(new String[]{"org.landocore.wishlist.beans"});
+        Class<?>[] hibernateAnnotatedClasses = new Class<?>[] {
+                org.landocore.wishlist.beans.login.User.class,
+                org.landocore.wishlist.beans.login.Authority.class
+        };
+        sessionFactory.setAnnotatedClasses(hibernateAnnotatedClasses);
 
         Properties props = new Properties();
         props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL82Dialect");
@@ -72,15 +76,16 @@ public class DataConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager(){
+    public HibernateTransactionManager transactionManager() {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
     }
 
     @Bean
-    public UserRepositoryImpl userRepository(){
-        UserRepositoryImpl userRepository = new UserRepositoryImpl(sessionFactory().getObject());
+    public UserRepositoryImpl userRepository() {
+        UserRepositoryImpl userRepository =
+                new UserRepositoryImpl(sessionFactory().getObject());
         return userRepository;
     }
 }

@@ -69,7 +69,7 @@ public class LoginLogoutController {
     private ResourceBundle emailBundle;
 
     @Autowired
-    public void setEmailBundle(ResourceBundle resourceBundle){
+    public void setEmailBundle(ResourceBundle emailBundle){
         this.emailBundle = emailBundle;
     }
 

@@ -41,7 +41,7 @@ public class AbstractDaoImpl<E, I extends Serializable>
      */
     protected AbstractDaoImpl(Class<E> pEntityClass, SessionFactory pSessionFactory) {
         this.sessionFactory = pSessionFactory;
-        this.entityClass = entityClass;
+        this.entityClass = pEntityClass;
     }
 
     /**
