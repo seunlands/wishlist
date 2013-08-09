@@ -19,34 +19,34 @@ public interface AbstractDao<E, I> {
 
     /**
      * finds the entity E by its it.
-     * @param id
-     * @return
+     * @param id the id of the entity to find
+     * @return the entity <E>
      */
     E findById(I id);
 
     /**
      * save the entity.
-     * @param entity
+     * @param entity entity to be save or updated
      */
     void saveOrUpdate(E entity);
 
     /**
      * deletes the entity.
-     * @param entity
+     * @param entity entity to be deleted
      */
     void delete(E entity);
 
     /**
      * finds the entities by the criterion.
-     * @param criterion
-     * @return
+     * @param criterion restriction of the entities to be find
+     * @return List of entities corresponding to the Criterion
      */
     List findByCriteria(Criterion criterion);
 
     /**
      * finds the entities by the criteria map.
-     * @param criteria
-     * @return
+     * @param criteria map of restrictions to apply
+     * @return list<E> of entities corresponding to the criteria supplied
      */
     List findByCriteria(Map<String, Object> criteria);
 }

@@ -35,11 +35,12 @@ public class AbstractDaoImpl<E, I extends Serializable>
     private SessionFactory sessionFactory;
 
     /**
-     * The constructor of the class
-     * @param pEntityClass
-     * @param pSessionFactory
+     * The constructor of the class.
+     * @param pEntityClass class of the entity for which is the dao
+     * @param pSessionFactory hibernate SessionFactory
      */
-    protected AbstractDaoImpl(Class<E> pEntityClass, SessionFactory pSessionFactory) {
+    protected AbstractDaoImpl(final Class<E> pEntityClass,
+                              final SessionFactory pSessionFactory) {
         this.sessionFactory = pSessionFactory;
         this.entityClass = pEntityClass;
     }
@@ -53,17 +54,17 @@ public class AbstractDaoImpl<E, I extends Serializable>
     }
 
     @Override
-    public E findById(I id) {
+    public final E findById(final I id) {
         return (E) getCurrentSession().get(entityClass, id);
     }
 
     @Override
-    public final void saveOrUpdate(E entity) {
+    public final void saveOrUpdate(final E entity) {
         getCurrentSession().saveOrUpdate(entity);
     }
 
     @Override
-    public final void delete(E entity) {
+    public final void delete(final E entity) {
         getCurrentSession().delete(entity);
     }
 
@@ -83,10 +84,12 @@ public class AbstractDaoImpl<E, I extends Serializable>
 
     /**
      *
-     * @param criteria
-     * @return The corresponding Criterion. Return NULL if criteria is NULL or empty
+     * @param criteria map of criteria to be transformed to criterion
+     * @return The corresponding Criterion.
+     * Return NULL if criteria is NULL or empty
      */
-    private Criterion getCriterionByCriteria(final Map<String, Object> criteria) {
+    private Criterion getCriterionByCriteria(
+            final Map<String, Object> criteria) {
         if (criteria == null || criteria.isEmpty()) {
             return null;
         }
