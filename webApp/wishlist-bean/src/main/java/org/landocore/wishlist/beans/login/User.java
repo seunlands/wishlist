@@ -19,7 +19,7 @@ public class User implements Serializable {
      * Id of the user.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
