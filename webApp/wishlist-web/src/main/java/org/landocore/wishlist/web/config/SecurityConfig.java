@@ -44,7 +44,7 @@ public class SecurityConfig {
     @Bean
     public SaltSource saltSource(){
         ReflectionSaltSource saltSource = new ReflectionSaltSource();
-        saltSource.setUserPropertyToUse("id");
+        saltSource.setUserPropertyToUse("username");
         return saltSource;
     }
 

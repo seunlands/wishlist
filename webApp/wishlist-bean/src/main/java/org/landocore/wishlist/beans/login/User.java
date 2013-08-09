@@ -170,4 +170,22 @@ public class User implements Serializable {
         int prime = 13;
         return prime * username.hashCode();
     }
+
+    /**
+     * Default constructor.
+     */
+    public User() {
+    }
+
+    /**
+     * Contructor of the user class with username, password and email.
+     * @param pUsername
+     * @param pEmail
+     * @param pPassword
+     */
+    public User(final String pUsername, final String pEmail, final String pPassword) {
+        this.username = pUsername;
+        this.email = pEmail;
+        this.password = pPassword;
+    }
 }

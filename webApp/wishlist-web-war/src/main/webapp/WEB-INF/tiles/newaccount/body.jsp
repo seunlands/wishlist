@@ -4,7 +4,7 @@
 <h1>Create account</h1>
 <div id="login-error">${error}</div>
 
-<form:form action="<c:url value='/auth/accountcreated.do' />" method="post" >
+<form:form action="<c:url value='/auth/accountsubmit.do' />" method="post" >
     <p>
         <label for="username">Username</label>
         <for id="username" name="username" type="text" />

@@ -1,8 +1,12 @@
 package org.landocore.wishlist.business.user;
 
 import org.landocore.wishlist.beans.login.User;
+import org.landocore.wishlist.business.authentication.AuthenticationUserDetails;
 import org.landocore.wishlist.repositories.login.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.dao.SaltSource;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,22 +15,73 @@ import org.springframework.transaction.annotation.Transactional;
  * User: seun
  * Date: 29/07/13
  * Time: 19:37
- * To change this template use File | Settings | File Templates.
+ * Business service related to User management
  */
 @Service("userService")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
+    /**
+     * user repo.
+     */
     private UserRepository userRepository;
 
+    /**
+     * setter user repo.
+     * @param pUserRepository
+     */
     @Autowired
-    public void setUserRepository(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public final void setUserRepository(final UserRepository pUserRepository) {
+        this.userRepository = pUserRepository;
+    }
+
+    /**
+     * saltsource for password encoding.
+     */
+    private SaltSource saltSource;
+
+    /**
+     * setter salt source.
+     * @param pSaltSource
+     */
+    @Autowired
+    public final void setReflectionSaltSource(final SaltSource pSaltSource) {
+        this.saltSource = pSaltSource;
+    }
+
+    /**
+     * password encoder.
+     */
+    private PasswordEncoder passwordEncoder;
+
+    /**
+     * setter password encoder.
+     * @param pPasswordEncoder
+     */
+    @Autowired
+    public final void setPasswordEncoder(final PasswordEncoder pPasswordEncoder) {
+        this.passwordEncoder = pPasswordEncoder;
+    }
+
+
+    @Override
+    @Transactional
+    public final User getUserByUsername(final String username) {
+        User user = userRepository.findByLogin(username);
+        return user;
     }
 
     @Override
     @Transactional
-    public User getUserByUsername(String username){
-        User user = userRepository.findByLogin(username);
+    public final User createUser(User user) {
+        if (user == null) {
+            return null;
+        }
+        UserDetails userDetails = new AuthenticationUserDetails(user);
+        Object salt = saltSource.getSalt(userDetails);
+        String password = passwordEncoder.
+                encodePassword(user.getPassword(), salt);
+        user.setPassword(password);
+        userRepository.saveOrUpdate(user);
         return user;
     }
 

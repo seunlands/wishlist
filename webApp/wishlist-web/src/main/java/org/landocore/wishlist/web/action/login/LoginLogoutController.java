@@ -168,9 +168,18 @@ public class LoginLogoutController {
 
 
     @RequestMapping("/createaccount")
-    public String getNewAccountPage(ModelMap model){
+    public final String getNewAccountPage(ModelMap model){
         model.put("command", new NewAccountForm());
-        return("/newaccount");
+        return "/newaccount";
+    }
+
+    @RequestMapping("/accountsubmit")
+    public final String createAccount(@ModelAttribute("newAccountForm") final NewAccountForm newAccountForm, final BindingResult result, ModelMap model) {
+        User user = new User(newAccountForm.getUsername(),
+                newAccountForm.getEmail(), newAccountForm.getPassword());
+        userService.createUser(user);
+        model.put("message", "Account created");
+        return "/loginpage";
     }
 
 
