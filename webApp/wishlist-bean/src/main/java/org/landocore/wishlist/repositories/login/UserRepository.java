@@ -28,16 +28,16 @@ public interface UserRepository extends AbstractDao<User, Long> {
 
     /**
      * find the user by id.
-     * @param userId the user's id to search for
-     * @return
+     * @param pUserId the user's id to search for
+     * @return a user
      */
-    User findById(Long userId);
+    User findById(Long pUserId);
 
     /**
      * find the user by email.
-     * @param email
-     * @return
+     * @param pEmail the user's email to search for
+     * @return a user
      */
-    User findByEmail(String email);
+    User findByEmail(String pEmail);
 
 }

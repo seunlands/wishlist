@@ -10,39 +10,61 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.rowset.spi.TransactionalWriter;
-
 /**
  * Created with IntelliJ IDEA.
  * User: seun
  * Date: 26/07/13
  * Time: 23:51
- * To change this template use File | Settings | File Templates.
+ * User details getter for Spring security
  */
 @Service("userDetailsService")
 public class AuthenticationUserDetailsGetter implements UserDetailsService {
 
+    /**
+     * User repo to be used (Spring dep injection).
+     */
     private UserRepository userRepository;
+
+    /**
+     * setter of the user repo.
+     * @param pUserRepository  user repo to be used
+     */
     @Autowired
-    public void setUserRepository(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public final void setUserRepository(final UserRepository pUserRepository) {
+        this.userRepository = pUserRepository;
     }
 
-    public AuthenticationUserDetailsGetter(){
+    /**
+     * Default constructor.
+     */
+    public AuthenticationUserDetailsGetter() {
 
     }
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-        User user = userRepository.findByLogin(username);
-        throwExceptionIfNotFound(user, username);
+    public final UserDetails loadUserByUsername(final String pUsername)
+            throws UsernameNotFoundException, DataAccessException {
+        User user = userRepository.findByLogin(pUsername);
+        try {
+            throwExceptionIfNotFound(user, pUsername);
+        } catch (UsernameNotFoundException e) {
+            throw e;
+        }
         return new AuthenticationUserDetails(user);
     }
 
-    private void throwExceptionIfNotFound(User user, String login) throws UsernameNotFoundException, DataAccessException {
-        if(user == null){
-            throw new UsernameNotFoundException("User with login " + login + " has not been found.");
+    /**
+     * checks if user found.
+     * @param pUser user to be checked
+     * @param pLogin username to be checked
+     * @throws UsernameNotFoundException if user not found
+     */
+    private void throwExceptionIfNotFound(final User pUser, final String pLogin)
+            throws UsernameNotFoundException {
+        if (pUser == null) {
+            throw new UsernameNotFoundException("User with login "
+                    + pLogin + " has not been found.");
         }
     }
 }

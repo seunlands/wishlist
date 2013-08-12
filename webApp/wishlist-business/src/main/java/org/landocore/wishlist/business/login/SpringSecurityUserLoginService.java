@@ -7,8 +7,10 @@ import org.landocore.wishlist.repositories.login.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.RememberMeAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication
+        .RememberMeAuthenticationToken;
+import org.springframework.security.authentication
+        .UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
@@ -22,106 +24,149 @@ import org.springframework.transaction.annotation.Transactional;
  * User: seun
  * Date: 28/07/13
  * Time: 06:26
- * To change this template use File | Settings | File Templates.
+ * Login business class
  */
 @Service("userLoginService")
 public class SpringSecurityUserLoginService implements UserLoginService {
 
-    private final String internalHashKeyForAutomaticLoginAfterRegistration = "magicInternalHashKeyForAutomaticLoginAfterRegistration";
+    /**
+     * the Automatic login after registration.
+     */
+    private final String internalHashKeyForAutomaticLoginAfterRegistration
+            = "magicInternalHashKeyForAutomaticLoginAfterRegistration";
 
+    /**
+     * the user repo (spring dep injection).
+     */
     private UserRepository userRepository;
+
+    /**
+     * setter of the user repo.
+     * @param pUserRepository the user repo to be used
+     */
     @Autowired
-    public void setUserRepository(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public final void setUserRepository(final UserRepository pUserRepository) {
+        this.userRepository = pUserRepository;
     }
 
+    /**
+     * the authentication manager.
+     */
     private AuthenticationManager authenticationManager;
+
+    /**
+     * setter for authentication manager.
+     * @param pAuthenticationManager the authentication manager
+     */
     @Autowired
-    public void setAuthenticationManager(AuthenticationManager authenticationManager){
-        this.authenticationManager = authenticationManager;
+    public final void setAuthenticationManager(
+            final AuthenticationManager pAuthenticationManager) {
+        this.authenticationManager = pAuthenticationManager;
     }
 
+    /**
+     * the salt source for password hashing.
+     */
     private SaltSource saltSource;
 
+    /**
+     * setter for salt source.
+     * @param pSaltSource the salt source
+     */
     @Autowired
-    public void setReflectionSaltSource(SaltSource saltSource){
-        this.saltSource = saltSource;
+    public final void setReflectionSaltSource(final SaltSource pSaltSource) {
+        this.saltSource = pSaltSource;
     }
 
+    /**
+     * the password hasher.
+     */
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * setter for the password hasher.
+     * @param pPasswordEncoder the password hasher
+     */
     @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder){
-        this.passwordEncoder = passwordEncoder;
+    public final void setPasswordEncoder(
+            final PasswordEncoder pPasswordEncoder) {
+        this.passwordEncoder = pPasswordEncoder;
     }
 
     @Override
-    public User getLoggedUser() {
+    public final User getLoggedUser() {
         User loggedUser = null;
         AuthenticationUserDetails userDetails = getLoggedUserDetails();
-        if(userDetails != null){
+        if (userDetails != null) {
             loggedUser = userRepository.findById(userDetails.getId());
         }
         return loggedUser;
     }
 
     @Override
-    public AuthenticationUserDetails getLoggedUserDetails() {
+    public final AuthenticationUserDetails getLoggedUserDetails() {
         AuthenticationUserDetails loggedUserDetails = null;
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(isAuthenticated(authentication)){
+        Authentication authentication = SecurityContextHolder
+                .getContext().getAuthentication();
+        if (isAuthenticated(authentication)) {
             Object principal = authentication.getPrincipal();
-            if(principal instanceof AuthenticationUserDetails){
+            if (principal instanceof AuthenticationUserDetails) {
                 loggedUserDetails = ((AuthenticationUserDetails) principal);
-            } else {
-                //throw new ThingThatShouldNotBeException("Expected class of authentication principal is AuthenticationUserDetails. Given: " + principal.getClass());
             }
         }
         return loggedUserDetails;
     }
 
     @Override
-    public boolean login(Long userId) {
-        boolean isLoginSuccessfull = false;
-        User user = userRepository.findById(userId);
+    public final boolean login(final Long pUserId) {
+        boolean isLoginSuccessful = false;
+        User user = userRepository.findById(pUserId);
         if (user != null) {
-            AuthenticationUserDetails userDetails = new AuthenticationUserDetails(user);
-            final RememberMeAuthenticationToken rememberMeAuthenticationToken = new RememberMeAuthenticationToken(internalHashKeyForAutomaticLoginAfterRegistration, userDetails, null);
+            AuthenticationUserDetails userDetails =
+                    new AuthenticationUserDetails(user);
+            final RememberMeAuthenticationToken rememberMeAuthenticationToken =
+                    new RememberMeAuthenticationToken(
+                        internalHashKeyForAutomaticLoginAfterRegistration,
+                        userDetails, null);
             rememberMeAuthenticationToken.setAuthenticated(true);
-            SecurityContextHolder.getContext().setAuthentication(rememberMeAuthenticationToken);
-            isLoginSuccessfull = true;
+            SecurityContextHolder.getContext().
+                    setAuthentication(rememberMeAuthenticationToken);
+            isLoginSuccessful = true;
         }
-        return isLoginSuccessfull;
+        return isLoginSuccessful;
 
     }
 
     @Override
-    public boolean login(String login, String password) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, password));
+    public final boolean login(final String pLogin, final String pPassword) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(pLogin, pPassword));
         boolean isAuthenticated = isAuthenticated(authentication);
-        if(isAuthenticated){
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        if (isAuthenticated) {
+            SecurityContextHolder.getContext()
+                    .setAuthentication(authentication);
         }
         return isAuthenticated;
     }
 
     @Override
-    public void logout() {
+    public final void logout() {
         SecurityContextHolder.getContext().setAuthentication(null);
     }
 
     @Override
-    public boolean isLoggedIn() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public final boolean isLoggedIn() {
+        Authentication authentication = SecurityContextHolder.
+                getContext().getAuthentication();
         return isAuthenticated(authentication);
     }
 
     @Override
     @Transactional
-    public String resetPassword(String username){
-        User user = userRepository.findByLogin(username);
+    public final String resetPassword(final String pUsername) {
+        User user = userRepository.findByLogin(pUsername);
         String newPassword = null;
-        if(user!=null){
+        if (user != null) {
             newPassword = StringUtils.generateRandomPassword(8);
             UserDetails userDetails = new AuthenticationUserDetails(user);
             Object salt = saltSource.getSalt(userDetails);
@@ -132,7 +177,14 @@ public class SpringSecurityUserLoginService implements UserLoginService {
         return newPassword;
     }
 
-    private boolean isAuthenticated(Authentication authentication){
-        return  authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
+    /**
+     * checks if the user is authenticated.
+     * @param pAuthentication authentication context
+     * @return true if authenticated
+     */
+    private boolean isAuthenticated(final Authentication pAuthentication) {
+        return  pAuthentication != null
+                && !(pAuthentication instanceof AnonymousAuthenticationToken)
+                && pAuthentication.isAuthenticated();
     }
 }

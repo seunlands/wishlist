@@ -16,70 +16,105 @@ import java.util.List;
  * User: seun
  * Date: 27/07/13
  * Time: 00:02
- * To change this template use File | Settings | File Templates.
+ * user authentication details
  */
 public class AuthenticationUserDetails implements UserDetails {
 
+    /**
+     * id of the user.
+     */
     private Long id;
+
+    /**
+     * login of the user.
+     */
     private final String login;
+
+    /**
+     * the password hash of the user.
+     */
     private final String passwordHash;
+
+    /**
+     * the enabled status of the user.
+     */
     private final boolean enabled;
+
+    /**
+     * the authorities of the user.
+     */
     private HashSet<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
-    public AuthenticationUserDetails(User user){
-        this.login = user.getUsername();
-        this.passwordHash = user.getPassword();
-        this.enabled = user.isEnabled();
-        this.id = user.getId();
-        this.grantedAuthorities.addAll(this.getGrantedAuthoritiesFromUser(user.getListAuthorities()));
+
+    /**
+     * Constructor of the AuthenticationUseDetails.
+     * @param pUser the user from which to create it
+     */
+    public AuthenticationUserDetails(final User pUser) {
+        this.login = pUser.getUsername();
+        this.passwordHash = pUser.getPassword();
+        this.enabled = pUser.isEnabled();
+        this.id = pUser.getId();
+        this.grantedAuthorities.addAll(
+                this.getGrantedAuthoritiesFromUser(pUser.getListAuthorities()));
     }
 
-    public Long getId(){
+    /**
+     * getter of the id attribute.
+     * @return id of the user
+     */
+    public final Long getId() {
         return this.id;
     }
 
 
     @Override
-    public Collection<GrantedAuthority> getAuthorities() {
+    public final Collection<GrantedAuthority> getAuthorities() {
         return grantedAuthorities;
     }
 
     @Override
-    public String getPassword() {
+    public final String getPassword() {
         return passwordHash;
     }
 
     @Override
-    public String getUsername() {
+    public final String getUsername() {
         return login;
     }
 
     @Override
-    public boolean isAccountNonExpired() {
+    public final boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
-    public boolean isAccountNonLocked() {
+    public final boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
-    public boolean isCredentialsNonExpired() {
+    public final boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return enabled;
     }
 
-    private List<GrantedAuthority> getGrantedAuthoritiesFromUser(List<Authority> lstAuthority){
-        if(lstAuthority==null || lstAuthority.isEmpty()){
+    /**
+     * Transform a list if Authority to a list of GrantedAuhtority.
+     * @param lstAuthority list of Authority to change
+     * @return list of GrantedAuthority
+     */
+    private List<GrantedAuthority> getGrantedAuthoritiesFromUser(
+            final List<Authority> lstAuthority) {
+        if (lstAuthority == null || lstAuthority.isEmpty()) {
             return null;
         }
         List<GrantedAuthority> lstGrantedAuthorities = new ArrayList<>();
-        for(Authority auth : lstAuthority){
+        for (Authority auth : lstAuthority) {
             GrantedAuthority ga = new SimpleGrantedAuthority(auth.getName());
             lstGrantedAuthorities.add(ga);
         }

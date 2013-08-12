@@ -24,7 +24,7 @@ public class UserRepositoryImpl extends AbstractDaoImpl<User, Long>
 
     /**
      * Constructor of the repository.
-     * @param sessionFactory
+     * @param sessionFactory the hibernate session factory
      */
     public UserRepositoryImpl(final SessionFactory sessionFactory) {
         super(User.class, sessionFactory);
