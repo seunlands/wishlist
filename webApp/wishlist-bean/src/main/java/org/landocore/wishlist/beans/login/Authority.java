@@ -34,7 +34,7 @@ public class Authority implements Serializable {
 
     /**
      * returns the ID.
-     * @return
+     * @return return the ID of the authority
      */
     public final Long getId() {
         return id;
@@ -42,7 +42,7 @@ public class Authority implements Serializable {
 
     /**
      * sets the ID.
-     * @param pId
+     * @param pId id to be set
      */
     public final void setId(final Long pId) {
         this.id = pId;
@@ -50,7 +50,7 @@ public class Authority implements Serializable {
 
     /**
      * return the name.
-     * @return
+     * @return the name of the authority
      */
     public final String getName() {
         return name;
@@ -58,7 +58,7 @@ public class Authority implements Serializable {
 
     /**
      * sets the name.
-     * @param pName
+     * @param pName name to be set
      */
     public final void setName(final String pName) {
         this.name = pName;

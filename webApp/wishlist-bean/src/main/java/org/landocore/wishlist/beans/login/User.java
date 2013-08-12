@@ -1,6 +1,13 @@
 package org.landocore.wishlist.beans.login;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
@@ -36,19 +43,19 @@ public class User implements Serializable {
     private String email;
 
     /**
-     * password of the user
+     * password of the user.
      */
     @Column(name = "password", nullable = false, length = 256)
     private String password;
 
     /**
-     * status of the account
+     * status of the account.
      */
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
     /**
-     * List of authorities of the user
+     * List of authorities of the user.
      */
     @ManyToMany(targetEntity =
             org.landocore.wishlist.beans.login.Authority.class)
@@ -62,16 +69,16 @@ public class User implements Serializable {
     /**
      * @return the Email of the user
      */
-    public final String getEmail(){
+    public final String getEmail() {
         return email;
     }
 
     /**
-     * sets the email
-     * @param pEmail
+     * sets the email.
+     * @param pEmail email to be set
      */
-    public final void setEmail(final String pEmail){
-        this.email = email;
+    public final void setEmail(final String pEmail) {
+        this.email = pEmail;
     }
 
 
@@ -83,8 +90,8 @@ public class User implements Serializable {
     }
 
     /**
-     * sets the id of the user
-     * @param pId
+     * sets the id of the user.
+     * @param pId sets the id of the user
      */
     public final void setId(final Long pId) {
         this.id = pId;
@@ -98,11 +105,11 @@ public class User implements Serializable {
     }
 
     /**
-     * sets the username
-     * @param pUsername
+     * sets the username.
+     * @param pUsername username to be set
      */
     public final void setUsername(final String pUsername) {
-        this.username = username;
+        this.username = pUsername;
     }
 
     /**
@@ -114,8 +121,8 @@ public class User implements Serializable {
     }
 
     /**
-     * sets the password
-     * @param pPassword
+     * sets the password.
+     * @param pPassword password to be set
      */
     public final void setPassword(final String pPassword) {
         this.password = pPassword;
@@ -130,8 +137,8 @@ public class User implements Serializable {
     }
 
     /**
-     * sets status of the account
-     * @param pEnabled
+     * sets status of the account.
+     * @param pEnabled sets enabled for the user
      */
     public final void setEnabled(final boolean pEnabled) {
         this.enabled = pEnabled;
@@ -146,10 +153,11 @@ public class User implements Serializable {
     }
 
     /**
-     * set the autorities of the user
-     * @param pListAuthorities
+     * set the autorities of the user.
+     * @param pListAuthorities sets the list of authorities of the users
      */
-    public final void setListAuthorities(final List<Authority> pListAuthorities) {
+    public final void setListAuthorities(
+            final List<Authority> pListAuthorities) {
         this.listAuthorities = pListAuthorities;
     }
 
@@ -179,11 +187,12 @@ public class User implements Serializable {
 
     /**
      * Contructor of the user class with username, password and email.
-     * @param pUsername
-     * @param pEmail
-     * @param pPassword
+     * @param pUsername username of the user
+     * @param pEmail email of the user
+     * @param pPassword email of the password
      */
-    public User(final String pUsername, final String pEmail, final String pPassword) {
+    public User(final String pUsername,
+                final String pEmail, final String pPassword) {
         this.username = pUsername;
         this.email = pEmail;
         this.password = pPassword;

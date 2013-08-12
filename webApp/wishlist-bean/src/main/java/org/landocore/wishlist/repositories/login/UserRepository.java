@@ -14,21 +14,21 @@ public interface UserRepository extends AbstractDao<User, Long> {
 
     /**
      * Return the user by the username.
-     * @param login
-     * @return
+     * @param pUsername the user's username to search for
+     * @return the User corresponding to the login provided
      */
-    User findByLogin(String login);
+    User findByLogin(String pUsername);
 
     /**
      * Saves the user.
-     * @param user
-     * @return
+     * @param pUser user to save
+     * @return the saved user
      */
-    User save(User user);
+    User save(User pUser);
 
     /**
      * find the user by id.
-     * @param userId
+     * @param userId the user's id to search for
      * @return
      */
     User findById(Long userId);
