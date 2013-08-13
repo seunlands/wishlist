@@ -10,23 +10,23 @@ package org.landocore.wishlist.web.form.login;
 public class NewAccountForm {
 
     /**
-     * the user name
+     * the user name.
      */
     private String username;
 
     /**
-     * the password
+     * the password.
      */
     private String password;
 
     /**
-     * the email
+     * the email.
      */
     private String email;
 
     /**
      * getter username.
-     * @return
+     * @return String : the username
      */
     public final String getUsername() {
         return username;
@@ -34,7 +34,7 @@ public class NewAccountForm {
 
     /**
      * setter username.
-     * @param pUsername
+     * @param pUsername : String the username
      */
     public final void setUsername(final String pUsername) {
         this.username = pUsername;
@@ -42,7 +42,7 @@ public class NewAccountForm {
 
     /**
      * getter of the password.
-     * @return
+     * @return String password
      */
     public final String getPassword() {
         return password;
@@ -50,7 +50,7 @@ public class NewAccountForm {
 
     /**
      * setter of the password.
-     * @param pPassword
+     * @param pPassword : String the password
      */
     public final void setPassword(final String pPassword) {
         this.password = pPassword;
@@ -58,7 +58,7 @@ public class NewAccountForm {
 
     /**
      * getter of the email.
-     * @return
+     * @return String the email
      */
     public final String getEmail() {
         return email;
@@ -66,7 +66,7 @@ public class NewAccountForm {
 
     /**
      * setter of the email.
-     * @param pEmail
+     * @param pEmail String the email
      */
     public final void setEmail(final String pEmail) {
         this.email = pEmail;

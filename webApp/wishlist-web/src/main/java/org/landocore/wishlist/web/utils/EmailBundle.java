@@ -9,11 +9,16 @@ import java.util.Locale;
  * User: seun
  * Date: 29/07/13
  * Time: 23:05
- * To change this template use File | Settings | File Templates.
+ * Bundle to access the email resources
  */
 public class EmailBundle extends ResourceBundleMessageSource {
 
-    public String getMessage(final String message){
-        return super.getMessage(message, null, Locale.ROOT);
+    /**
+     * Returns de message from the key.
+     * @param pKey : the key to look for
+     * @return String the message
+     */
+    public final String getMessage(final String pKey) {
+        return super.getMessage(pKey, null, Locale.ROOT);
     }
 }

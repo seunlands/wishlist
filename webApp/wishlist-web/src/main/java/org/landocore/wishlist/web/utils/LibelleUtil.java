@@ -13,14 +13,23 @@ import java.text.MessageFormat;
  * User: seun
  * Date: 29/07/13
  * Time: 23:25
- * To change this template use File | Settings | File Templates.
+ * Utility class for the names.
  */
 public final class LibelleUtil {
 
-    private static final Logger logger = Logger.getLogger(LibelleUtil.class);
+    /**
+     * the logger.
+     */
+    private static final Logger LOGGER = Logger.getLogger(LibelleUtil.class);
 
-
-    public static String getString(InputStream inputStream, Object[] args) {
+    /**
+     * replaces the {n} (n is a integer) in InputStream with args[n].
+     * @param inputStream the stream to read
+     * @param args the items to replace
+     * @return the formatted string
+     */
+    public static String getString(
+            final InputStream inputStream, final Object[] args) {
         StringBuffer buffer = new StringBuffer();
         if (inputStream != null) {
             InputStreamReader isr = new InputStreamReader(inputStream);
@@ -35,14 +44,20 @@ public final class LibelleUtil {
                 br.close();
                 isr.close();
             } catch (IOException e) {
-                logger.warn(e.getMessage(), e);
+                LOGGER.warn(e.getMessage(), e);
             }
         }
         try {
             return MessageFormat.format(buffer.toString(), args);
         } catch (final IllegalArgumentException e) {
-            logger.warn(e.getMessage(), e);
+            LOGGER.warn(e.getMessage(), e);
             return buffer.toString();
         }
+    }
+
+    /**
+     * private constructor -> utility class.
+     */
+    private LibelleUtil() {
     }
 }
