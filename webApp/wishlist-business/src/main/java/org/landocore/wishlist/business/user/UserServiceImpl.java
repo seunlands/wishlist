@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * setter user repo.
-     * @param pUserRepository
+     * @param pUserRepository the user repo to use
      */
     @Autowired
     public final void setUserRepository(final UserRepository pUserRepository) {
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * setter salt source.
-     * @param pSaltSource
+     * @param pSaltSource the salt source to use
      */
     @Autowired
     public final void setReflectionSaltSource(final SaltSource pSaltSource) {
@@ -55,10 +55,11 @@ public class UserServiceImpl implements UserService {
 
     /**
      * setter password encoder.
-     * @param pPasswordEncoder
+     * @param pPasswordEncoder the password encoder to use
      */
     @Autowired
-    public final void setPasswordEncoder(final PasswordEncoder pPasswordEncoder) {
+    public final void setPasswordEncoder(
+            final PasswordEncoder pPasswordEncoder) {
         this.passwordEncoder = pPasswordEncoder;
     }
 

@@ -40,27 +40,28 @@ public class LoginLogoutController {
             getLogger(LoginLogoutController.class);
 
     /**
-     * injection dependency spring userLoginService
+     * injection dependency spring userLoginService.
      */
     private UserLoginService userLoginService;
 
     /**
      * setter of userLoginService.
-     * @param pUserLoginService
+     * @param pUserLoginService the uses login service to use
      */
     @Autowired
-    public final void setUserLoginService(final UserLoginService pUserLoginService) {
+    public final void setUserLoginService(
+            final UserLoginService pUserLoginService) {
         this.userLoginService = pUserLoginService;
     }
 
     /**
-     * the mailsender
+     * the mailsender.
      */
     private MailSender mailSender;
 
     /**
-     * sete of the mailsendre
-     * @param pMailSender
+     * sete of the mailsender.
+     * @param pMailSender mail sender to use
      */
     @Autowired
     public final void setMailSender(final MailSender pMailSender) {
@@ -68,27 +69,28 @@ public class LoginLogoutController {
     }
 
     /**
-     * the mail template
+     * the mail template.
      */
     private SimpleMailMessage templateMessage;
 
     /**
-     * setter of the mail template
-     * @param pTemplateMessage
+     * setter of the mail template.
+     * @param pTemplateMessage SimpleMailMessage template to use
      */
     @Autowired
-    public final void setTemplateMessage(final SimpleMailMessage pTemplateMessage) {
+    public final void setTemplateMessage(
+            final SimpleMailMessage pTemplateMessage) {
         this.templateMessage = pTemplateMessage;
     }
 
     /**
-     * the spring dep userService
+     * the spring dep userService.
      */
     private UserService userService;
 
     /**
-     * setter of the userService
-     * @param pUserService
+     * setter of the userService.
+     * @param pUserService the user service to use
      */
     @Autowired
     public final void setUserService(final UserService pUserService) {
@@ -96,13 +98,13 @@ public class LoginLogoutController {
     }
 
     /**
-     * resource bundle regarding the emails
+     * resource bundle regarding the emails.
      */
     private ResourceBundle emailBundle;
 
     /**
-     * setter of the emailBundle
-     * @param pEmailBundle
+     * setter of the emailBundle.
+     * @param pEmailBundle the ResourceBundle to use for email
      */
     @Autowired
     public final void setEmailBundle(final ResourceBundle pEmailBundle) {
@@ -110,16 +112,19 @@ public class LoginLogoutController {
     }
 
     /**
-     * Request for login page
-     * @param error
-     * @param model
-     * @return
+     * Request for login page.
+     * @param error request parameter error
+     * @param model model and map of the view
+     * @return the view name
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public final String getLoginPage(@RequestParam(value = "error", required = false) final boolean error, ModelMap model){
+    public final String getLoginPage(
+            @RequestParam(
+                    value = "error", required = false) final boolean error,
+            ModelMap model) {
         logger.debug("Received request to show login page");
 
-        if (error){
+        if (error) {
             model.put("error", "You have enter invalid credentials");
         } else {
             model.put("error", "");
@@ -129,30 +134,52 @@ public class LoginLogoutController {
     }
 
 
+    /**
+     * Request to show the denied access page.
+     * @return view of the denied access page
+     */
     @RequestMapping(value = "/denied", method = RequestMethod.GET)
-    public String getDeniedPage(){
+    public final String getDeniedPage() {
         logger.debug("Received request to show denied page");
         return "/deniedpage";
     }
 
 
+    /**
+     * Submit form for new password request.
+     * @param forgottenPasswordForm the forgottenPassword from
+     * @param result binding errors
+     * @param model the model and view
+     * @return the view
+     */
     @RequestMapping(value = "/passwordsubmit", method = RequestMethod.POST)
-    public String getForgottenPasswordSubmit(@ModelAttribute("forgottenPasswordForm") ForgottenPasswordForm forgottenPasswordForm, BindingResult result, ModelMap model){
-        logger.debug("Received request to reset password for user " + forgottenPasswordForm.getUsername());
+    public final String getForgottenPasswordSubmit(
+            @ModelAttribute("forgottenPasswordForm")
+                final ForgottenPasswordForm forgottenPasswordForm,
+            final BindingResult result, ModelMap model) {
+        logger.debug("Received request to reset password for user "
+                + forgottenPasswordForm.getUsername());
 
-        String password = userLoginService.resetPassword(forgottenPasswordForm.getUsername());
-        if (password != null){
-            SimpleMailMessage message = new SimpleMailMessage(this.templateMessage);
-            User user = userService.getUserByUsername(forgottenPasswordForm.getUsername());
+        String password = userLoginService.
+                resetPassword(forgottenPasswordForm.getUsername());
+        if (password != null) {
+            SimpleMailMessage message =
+                    new SimpleMailMessage(this.templateMessage);
+            User user = userService.getUserByUsername(
+                    forgottenPasswordForm.getUsername());
             message.setTo(user.getEmail());
-            String templateFilename = emailBundle.getString("email.template.password.reset");
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream(templateFilename);
-            String body = LibelleUtil.getString(is, new Object[]{user.getUsername(), password});
+            String templateFilename = emailBundle.
+                    getString("email.template.password.reset");
+            InputStream is = this.getClass().getClassLoader().
+                    getResourceAsStream(templateFilename);
+            String body = LibelleUtil.getString(
+                    is, new Object[]{user.getUsername(), password});
             message.setText(body);
             this.mailSender.send(message);
 
         } else {
-            logger.debug("user " + forgottenPasswordForm.getUsername() + " not found");
+            logger.debug("user " + forgottenPasswordForm.getUsername()
+                    + " not found");
         }
 
         model.put("submitted", true);
@@ -160,21 +187,40 @@ public class LoginLogoutController {
     }
 
 
+    /**
+     * Request for new password page.
+     * @param model the model and view
+     * @return the view
+     */
     @RequestMapping("/forgottenpassword")
-    public String getForgottenPasswordPage(ModelMap model){
+    public final String getForgottenPasswordPage(ModelMap model) {
         model.put("command", new ForgottenPasswordForm());
         return "/password";
     }
 
-
+    /**
+     * Request for new account.
+     * @param model model and view
+     * @return the view
+     */
     @RequestMapping("/createaccount")
-    public final String getNewAccountPage(ModelMap model){
+    public final String getNewAccountPage(ModelMap model) {
         model.put("command", new NewAccountForm());
         return "/newaccount";
     }
 
+    /**
+     * Submit the new account form.
+     * @param newAccountForm new account form
+     * @param result binding errors
+     * @param model model
+     * @return the view
+     */
     @RequestMapping("/accountsubmit")
-    public final String createAccount(@ModelAttribute("newAccountForm") final NewAccountForm newAccountForm, final BindingResult result, ModelMap model) {
+    public final String createAccount(
+            @ModelAttribute("newAccountForm")
+                final NewAccountForm newAccountForm,
+            final BindingResult result, ModelMap model) {
         User user = new User(newAccountForm.getUsername(),
                 newAccountForm.getEmail(), newAccountForm.getPassword());
         userService.createUser(user);

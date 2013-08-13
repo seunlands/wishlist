@@ -1,22 +1,17 @@
 package org.landocore.wishlist.web.config;
 
-import org.hibernate.SessionFactory;
-import org.landocore.wishlist.repositories.login.UserRepository;
 import org.landocore.wishlist.repositories.login.UserRepositoryImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.
+        WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
-import javax.transaction.TransactionManager;
 import java.util.Properties;
 
 /**
@@ -24,7 +19,7 @@ import java.util.Properties;
  * User: seun
  * Date: 30/07/13
  * Time: 22:56
- * To change this template use File | Settings | File Templates.
+ * Configuration of the datasource
  */
 @Configuration
 @EnableTransactionManagement

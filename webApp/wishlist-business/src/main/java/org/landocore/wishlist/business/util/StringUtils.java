@@ -2,19 +2,29 @@ package org.landocore.wishlist.business.util;
 
 import org.apache.commons.lang.RandomStringUtils;
 
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
  * User: seun
  * Date: 29/07/13
  * Time: 21:50
- * To change this template use File | Settings | File Templates.
+ * Utility class for strings
  */
 public final class StringUtils {
 
-    public static String generateRandomPassword(int length){
+    /**
+     * generates a random alphanumeric string.
+     * @param length length of the string
+     * @return the random string
+     */
+    public static String generateRandomPassword(final int length) {
         return RandomStringUtils.randomAlphanumeric(length);
 
+    }
+
+    /**
+     * Utility class : no public constructor.
+     */
+    private StringUtils() {
     }
 }

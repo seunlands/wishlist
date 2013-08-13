@@ -12,17 +12,17 @@ import org.landocore.wishlist.beans.login.User;
 public interface UserService {
 
     /**
-     * Return a user by the username provided
-     * @param username
-     * @return
+     * Return a user by the username provided.
+     * @param pUsername the user's username to search for
+     * @return User if found, else null
      */
-    User getUserByUsername(final String username);
+    User getUserByUsername(final String pUsername);
 
     /**
-     * Creates a new user
-     * @param user
-     * @return
+     * Creates a new user.
+     * @param pUser user to create
+     * @return the created user
      */
-    User createUser(User user);
+    User createUser(User pUser);
 
 }

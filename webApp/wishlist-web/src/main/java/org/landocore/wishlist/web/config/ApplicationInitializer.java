@@ -2,7 +2,8 @@ package org.landocore.wishlist.web.config;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.context.support.
+        AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -16,15 +17,17 @@ import javax.servlet.ServletRegistration;
  * User: seun
  * Date: 30/07/13
  * Time: 22:00
- * To change this template use File | Settings | File Templates.
+ * Application initializer
  */
 public class ApplicationInitializer implements WebApplicationInitializer {
 
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public final void onStartup(ServletContext servletContext)
+            throws ServletException {
         //application context
-        AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
+        AnnotationConfigWebApplicationContext rootContext =
+                new AnnotationConfigWebApplicationContext();
         rootContext.register(ApplicationContext.class);
         rootContext.setDisplayName("WishList");
 
@@ -32,12 +35,15 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
         //declare dispatch servlet
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
+        ServletRegistration.Dynamic dispatcher = servletContext.
+                addServlet("dispatcher", new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("*.do");
 
         //Register Spring security filter
-        FilterRegistration.Dynamic springSecurityFilterChain = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
+        FilterRegistration.Dynamic springSecurityFilterChain = servletContext.
+                addFilter("springSecurityFilterChain",
+                        new DelegatingFilterProxy());
         springSecurityFilterChain.addMappingForUrlPatterns(null, false, "/*");
 
 
