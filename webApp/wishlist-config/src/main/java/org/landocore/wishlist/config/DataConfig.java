@@ -1,4 +1,4 @@
-package org.landocore.wishlist.web.config;
+package org.landocore.wishlist.config;
 
 import org.landocore.wishlist.repositories.login.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,7 +54,7 @@ public class DataConfig extends WebMvcConfigurerAdapter {
      * @return DataSource
      */
     @Bean
-    public final DataSource dataSource() {
+    public DataSource dataSource() {
         try {
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             dataSource.setDriverClassName(driver);
@@ -72,7 +72,7 @@ public class DataConfig extends WebMvcConfigurerAdapter {
      * @return LocalSessionFactoryBean
      */
     @Bean
-    public final LocalSessionFactoryBean sessionFactory() {
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         Class<?>[] hibernateAnnotatedClasses = new Class<?>[] {
@@ -96,7 +96,7 @@ public class DataConfig extends WebMvcConfigurerAdapter {
      * @return HibernateTransactionManager
      */
     @Bean
-    public final HibernateTransactionManager transactionManager() {
+    public HibernateTransactionManager transactionManager() {
         HibernateTransactionManager transactionManager =
                 new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
@@ -108,7 +108,7 @@ public class DataConfig extends WebMvcConfigurerAdapter {
      * @return UserRepositoryImpl
      */
     @Bean
-    public final UserRepositoryImpl userRepository() {
+    public UserRepositoryImpl userRepository() {
         UserRepositoryImpl userRepository =
                 new UserRepositoryImpl(sessionFactory().getObject());
         return userRepository;

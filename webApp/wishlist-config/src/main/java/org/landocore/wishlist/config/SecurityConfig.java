@@ -1,4 +1,4 @@
-package org.landocore.wishlist.web.config;
+package org.landocore.wishlist.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -42,7 +42,7 @@ public class SecurityConfig {
      * @return DelegatingFilterProxy
      */
     @Bean
-    public final DelegatingFilterProxy springSecurityFilterChain() {
+    public DelegatingFilterProxy springSecurityFilterChain() {
         return new DelegatingFilterProxy();
     }
 
@@ -51,7 +51,7 @@ public class SecurityConfig {
      * @return SaltSource
      */
     @Bean
-    public final SaltSource saltSource() {
+    public SaltSource saltSource() {
         ReflectionSaltSource saltSource = new ReflectionSaltSource();
         saltSource.setUserPropertyToUse("username");
         return saltSource;
@@ -62,7 +62,7 @@ public class SecurityConfig {
      * @return ShaPasswordEncoder
      */
     @Bean
-    public final ShaPasswordEncoder passwordEncoder() {
+    public ShaPasswordEncoder passwordEncoder() {
         return new ShaPasswordEncoder(256);
     }
 
@@ -71,7 +71,7 @@ public class SecurityConfig {
      * @return DaoAuthenticationProvider
      */
     @Bean
-    public final DaoAuthenticationProvider daoAuthenticationProvider() {
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider =
                 new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
@@ -85,7 +85,7 @@ public class SecurityConfig {
      * @return AccessDecisionManager
      */
     @Bean
-    public final AccessDecisionManager accessDecisionManager() {
+    public AccessDecisionManager accessDecisionManager() {
         List<AccessDecisionVoter> lstVoters = new ArrayList<>();
         RoleVoter roleVoter = new RoleVoter();
         roleVoter.setRolePrefix("ROLE_");

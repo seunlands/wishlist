@@ -1,4 +1,4 @@
-package org.landocore.wishlist.web.config;
+package org.landocore.wishlist.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -68,7 +68,7 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
      * @return spring view resolver
      */
     @Bean
-    public final UrlBasedViewResolver urlBasedViewResolver() {
+    public UrlBasedViewResolver urlBasedViewResolver() {
         UrlBasedViewResolver urlBasedViewResolver = new UrlBasedViewResolver();
         urlBasedViewResolver.setViewClass(TilesView.class);
         return urlBasedViewResolver;
@@ -79,7 +79,7 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
      * @return the tilesConfigurer
      */
     @Bean
-    public final TilesConfigurer tilesConfigurer() {
+    public TilesConfigurer tilesConfigurer() {
         TilesConfigurer tilesConfigurer = new TilesConfigurer();
         tilesConfigurer.setDefinitions(new String[]{"/WEB-INF/tiles.xml"});
         return tilesConfigurer;
@@ -90,7 +90,7 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
      * @return the mail sender
      */
     @Bean
-    public final MailSender mailSender() {
+    public MailSender mailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(mailHost);
         return mailSender;
@@ -101,7 +101,7 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
      * @return  SimpleMailMessage
      */
     @Bean
-    public final SimpleMailMessage templateEmail() {
+    public SimpleMailMessage templateEmail() {
         SimpleMailMessage template = new SimpleMailMessage();
         template.setFrom(mailFromAdr);
         return template;
@@ -112,7 +112,7 @@ public class ApplicationContext extends WebMvcConfigurerAdapter {
      * @return ResourceBundle related to emails
      */
     @Bean
-    public final ResourceBundle emailBundle() {
+    public ResourceBundle emailBundle() {
         return ResourceBundle.getBundle("wishlist-emails");
     }
 

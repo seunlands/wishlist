@@ -1,4 +1,4 @@
-package org.landocore.wishlist.web.config;
+package org.landocore.wishlist.config;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
@@ -23,7 +23,7 @@ public class ApplicationInitializer implements WebApplicationInitializer {
 
 
     @Override
-    public final void onStartup(ServletContext servletContext)
+    public void onStartup(ServletContext servletContext)
             throws ServletException {
         //application context
         AnnotationConfigWebApplicationContext rootContext =
