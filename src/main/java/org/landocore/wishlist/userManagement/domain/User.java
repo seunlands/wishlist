@@ -33,13 +33,13 @@ public class User implements Serializable {
     /**
      * username of the user.
      */
-    @Column(name = "username", nullable = false, length = 30)
+    @Column(name = "username", nullable = false, length = 30, unique = true)
     private String username;
 
     /**
      * email of the user.
      */
-    @Column(name = "email", length = 50, nullable = false)
+    @Column(name = "email", length = 50, nullable = false, unique = true)
     private String email;
 
     /**

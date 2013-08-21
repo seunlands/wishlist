@@ -86,8 +86,7 @@ public class SecurityConfig {
         lstVoters.add(roleVoter);
         AuthenticatedVoter authenticatedVoter = new AuthenticatedVoter();
         lstVoters.add(authenticatedVoter);
-        AffirmativeBased affirmativeBased = new AffirmativeBased(lstVoters);
-        return affirmativeBased;
+        return new AffirmativeBased(lstVoters);
 
     }
 }
