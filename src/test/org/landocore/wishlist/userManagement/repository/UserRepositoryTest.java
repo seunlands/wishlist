@@ -84,6 +84,7 @@ public class UserRepositoryTest extends AbstractTransactionalJUnit4SpringContext
                 Assert.fail();
             } catch (ConstraintViolationException e) {
 
+
             }
         }
 
