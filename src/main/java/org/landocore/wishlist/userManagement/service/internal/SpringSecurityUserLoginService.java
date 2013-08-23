@@ -6,6 +6,7 @@ import org.landocore.wishlist.usermanagement.service.UserLoginService;
 import org.landocore.wishlist.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.
@@ -47,7 +48,12 @@ public class SpringSecurityUserLoginService implements UserLoginService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * the minimum password length.
 
+     */
+    @Value("${wishlist.password.min.length}")
+    private int passwordLength;
 
 
     @Override
@@ -126,7 +132,7 @@ public class SpringSecurityUserLoginService implements UserLoginService {
         User user = userRepository.findByLogin(pUsername);
         String newPassword = null;
         if (user != null) {
-            newPassword = StringUtils.generateRandomPassword(8);
+            newPassword = StringUtils.generateRandomPassword(passwordLength);
             String password = passwordEncoder.encode(newPassword);
             user.setPassword(password);
             userRepository.saveOrUpdate(user);
@@ -144,4 +150,43 @@ public class SpringSecurityUserLoginService implements UserLoginService {
                 && !(pAuthentication instanceof AnonymousAuthenticationToken)
                 && pAuthentication.isAuthenticated();
     }
+
+
+    //------Setters and Getters
+
+    /**
+     * setter of user repo.
+     * @param pUserRepository the user repo to set
+     */
+    public final void setUserRepository(final UserRepository pUserRepository) {
+        this.userRepository = pUserRepository;
+    }
+
+    /**
+     * setter of authentication manager.
+     * @param pAuthenticationManager authentication manager to use.
+     */
+    public final void setAuthenticationManager(final AuthenticationManager
+                                                       pAuthenticationManager) {
+        this.authenticationManager = pAuthenticationManager;
+    }
+
+    /**
+     * setter of password encoder.
+     * @param pPasswordEncoder password encoder to be used.
+     */
+    public final void setPasswordEncoder(
+            final PasswordEncoder pPasswordEncoder) {
+        this.passwordEncoder = pPasswordEncoder;
+    }
+
+    /**
+     * setter of the password length.
+     * @param pPasswordLength length og the password
+     */
+    public final void setPasswordLength(final int pPasswordLength) {
+        this.passwordLength = pPasswordLength;
+    }
+
+
 }
