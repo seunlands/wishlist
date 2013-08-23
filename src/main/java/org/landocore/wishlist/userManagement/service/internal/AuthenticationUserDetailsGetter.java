@@ -1,7 +1,7 @@
-package org.landocore.wishlist.userManagement.service.internal;
+package org.landocore.wishlist.usermanagement.service.internal;
 
-import org.landocore.wishlist.userManagement.domain.User;
-import org.landocore.wishlist.userManagement.repository.UserRepository;
+import org.landocore.wishlist.usermanagement.domain.User;
+import org.landocore.wishlist.usermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;

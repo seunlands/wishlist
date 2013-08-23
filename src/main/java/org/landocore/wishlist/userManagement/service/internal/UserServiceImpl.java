@@ -1,12 +1,10 @@
-package org.landocore.wishlist.userManagement.service.internal;
+package org.landocore.wishlist.usermanagement.service.internal;
 
-import org.landocore.wishlist.userManagement.domain.User;
-import org.landocore.wishlist.userManagement.repository.UserRepository;
-import org.landocore.wishlist.userManagement.service.UserService;
+import org.landocore.wishlist.usermanagement.domain.User;
+import org.landocore.wishlist.usermanagement.repository.UserRepository;
+import org.landocore.wishlist.usermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.dao.SaltSource;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,52 +21,20 @@ public class UserServiceImpl implements UserService {
     /**
      * user repo.
      */
+    @Autowired
     private UserRepository userRepository;
-
-    /**
-     * setter user repo.
-     * @param pUserRepository the user repo to use
-     */
-    @Autowired
-    public final void setUserRepository(final UserRepository pUserRepository) {
-        this.userRepository = pUserRepository;
-    }
-
-    /**
-     * saltsource for password encoding.
-     */
-    private SaltSource saltSource;
-
-    /**
-     * setter salt source.
-     * @param pSaltSource the salt source to use
-     */
-    @Autowired
-    public final void setReflectionSaltSource(final SaltSource pSaltSource) {
-        this.saltSource = pSaltSource;
-    }
 
     /**
      * password encoder.
      */
-    private PasswordEncoder passwordEncoder;
-
-    /**
-     * setter password encoder.
-     * @param pPasswordEncoder the password encoder to use
-     */
     @Autowired
-    public final void setPasswordEncoder(
-            final PasswordEncoder pPasswordEncoder) {
-        this.passwordEncoder = pPasswordEncoder;
-    }
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
     @Transactional
-    public final User getUserByUsername(final String username) {
-        User user = userRepository.findByLogin(username);
-        return user;
+    public User getUserByUsername(final String username) {
+        return userRepository.findByLogin(username);
     }
 
     @Override
@@ -77,13 +43,31 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return null;
         }
-        UserDetails userDetails = new AuthenticationUserDetails(user);
-        Object salt = saltSource.getSalt(userDetails);
-        String password = passwordEncoder.
-                encodePassword(user.getPassword(), salt);
+        String password = passwordEncoder.encode(user.getPassword());
         user.setPassword(password);
         userRepository.saveOrUpdate(user);
         return user;
     }
+
+
+
+    //-----------------------Setters and Getters
+    /**
+     * setter of the user repo
+     * @param pUserRepository the user repo to set
+     */
+    public final void setUserRepository(final UserRepository pUserRepository) {
+        this.userRepository = pUserRepository;
+    }
+
+    /**
+     * setter of the Password encoder
+     * @param pPasswordEncoder the Password encoder to set
+     */
+    public final void setPasswordEncoder(final PasswordEncoder pPasswordEncoder) {
+        this.passwordEncoder = pPasswordEncoder;
+    }
+
+
 
 }

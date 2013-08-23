@@ -1,8 +1,8 @@
-package org.landocore.wishlist.userManagement.service.internal;
+package org.landocore.wishlist.usermanagement.service.internal;
 
-import org.landocore.wishlist.userManagement.domain.User;
-import org.landocore.wishlist.userManagement.repository.UserRepository;
-import org.landocore.wishlist.userManagement.service.UserLoginService;
+import org.landocore.wishlist.usermanagement.domain.User;
+import org.landocore.wishlist.usermanagement.repository.UserRepository;
+import org.landocore.wishlist.usermanagement.service.UserLoginService;
 import org.landocore.wishlist.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,11 +12,9 @@ import org.springframework.security.authentication.
         RememberMeAuthenticationToken;
 import org.springframework.security.authentication.
         UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.dao.SaltSource;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,69 +29,26 @@ import org.springframework.transaction.annotation.Transactional;
 public class SpringSecurityUserLoginService implements UserLoginService {
 
     /**
-     * the Automatic login after registration.
-     */
-    private final String internalHashKeyForAutomaticLoginAfterRegistration
-            = "magicInternalHashKeyForAutomaticLoginAfterRegistration";
-
-    /**
      * the user repo (spring dep injection).
      */
-    private UserRepository userRepository;
-
-    /**
-     * setter of the user repo.
-     * @param pUserRepository the user repo to be used
-     */
     @Autowired
-    public final void setUserRepository(final UserRepository pUserRepository) {
-        this.userRepository = pUserRepository;
-    }
+    private UserRepository userRepository;
 
     /**
      * the authentication manager.
      */
-    private AuthenticationManager authenticationManager;
-
-    /**
-     * setter for authentication manager.
-     * @param pAuthenticationManager the authentication manager
-     */
     @Autowired
     @Qualifier("authenticationManager")
-    public final void setAuthenticationManager(
-            final AuthenticationManager pAuthenticationManager) {
-        this.authenticationManager = pAuthenticationManager;
-    }
-
-    /**
-     * the salt source for password hashing.
-     */
-    private SaltSource saltSource;
-
-    /**
-     * setter for salt source.
-     * @param pSaltSource the salt source
-     */
-    @Autowired
-    public final void setReflectionSaltSource(final SaltSource pSaltSource) {
-        this.saltSource = pSaltSource;
-    }
+    private AuthenticationManager authenticationManager;
 
     /**
      * the password hasher.
      */
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    /**
-     * setter for the password hasher.
-     * @param pPasswordEncoder the password hasher
-     */
-    @Autowired
-    public final void setPasswordEncoder(
-            final PasswordEncoder pPasswordEncoder) {
-        this.passwordEncoder = pPasswordEncoder;
-    }
+
+
 
     @Override
     public final User getLoggedUser() {
@@ -126,6 +81,8 @@ public class SpringSecurityUserLoginService implements UserLoginService {
         if (user != null) {
             AuthenticationUserDetails userDetails =
                     new AuthenticationUserDetails(user);
+            String internalHashKeyForAutomaticLoginAfterRegistration
+                    = "magicInternalHashKeyForAutomaticLoginAfterRegistration";
             final RememberMeAuthenticationToken rememberMeAuthenticationToken =
                     new RememberMeAuthenticationToken(
                         internalHashKeyForAutomaticLoginAfterRegistration,
@@ -170,9 +127,7 @@ public class SpringSecurityUserLoginService implements UserLoginService {
         String newPassword = null;
         if (user != null) {
             newPassword = StringUtils.generateRandomPassword(8);
-            UserDetails userDetails = new AuthenticationUserDetails(user);
-            Object salt = saltSource.getSalt(userDetails);
-            String password = passwordEncoder.encodePassword(newPassword, salt);
+            String password = passwordEncoder.encode(newPassword);
             user.setPassword(password);
             userRepository.saveOrUpdate(user);
         }

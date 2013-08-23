@@ -29,7 +29,7 @@ public class AbstractDaoImpl<E, I extends Serializable>
     /**
      * The entity of the repository.
      */
-    private Class<E> entityClass;
+    private final Class<E> entityClass;
 
     /**
      * The hibernate sessionFactory.
@@ -52,7 +52,7 @@ public class AbstractDaoImpl<E, I extends Serializable>
      *
      * @return returns the hibernate session factory.
      */
-    public final Session getCurrentSession() {
+    private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
 

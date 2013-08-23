@@ -1,4 +1,4 @@
-package org.landocore.wishlist.userManagement.domain;
+package org.landocore.wishlist.usermanagement.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

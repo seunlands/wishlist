@@ -1,7 +1,7 @@
-package org.landocore.wishlist.userManagement.repository;
+package org.landocore.wishlist.usermanagement.repository;
 
 import org.landocore.wishlist.common.repository.AbstractDao;
-import org.landocore.wishlist.userManagement.domain.User;
+import org.landocore.wishlist.usermanagement.domain.User;
 
 /**
  * Created with IntelliJ IDEA.

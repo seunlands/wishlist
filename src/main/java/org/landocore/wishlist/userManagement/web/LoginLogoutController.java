@@ -1,9 +1,9 @@
-package org.landocore.wishlist.userManagement.web;
+package org.landocore.wishlist.usermanagement.web;
 
 
-import org.landocore.wishlist.userManagement.domain.User;
-import org.landocore.wishlist.userManagement.service.UserLoginService;
-import org.landocore.wishlist.userManagement.service.UserService;
+import org.landocore.wishlist.usermanagement.domain.User;
+import org.landocore.wishlist.usermanagement.service.UserLoginService;
+import org.landocore.wishlist.usermanagement.service.UserService;
 import org.landocore.wishlist.common.utils.LibelleUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +34,9 @@ import java.util.ResourceBundle;
 public class LoginLogoutController {
 
     /**
-     * the logger.
+     * the LOGGER.
      */
-    private static Logger logger = LoggerFactory.
+    private static final Logger LOGGER = LoggerFactory.
             getLogger(LoginLogoutController.class);
 
     /**
@@ -117,12 +117,13 @@ public class LoginLogoutController {
      * @param model model and map of the view
      * @return the view name
      */
+    @SuppressWarnings("SameReturnValue")
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public final String getLoginPage(
             @RequestParam(
                     value = "error", required = false) final boolean error,
             ModelMap model) {
-        logger.debug("Received request to show login page");
+        LOGGER.debug("Received request to show login page");
 
         if (error) {
             model.put("error", "You have enter invalid credentials");
@@ -138,9 +139,10 @@ public class LoginLogoutController {
      * Request to show the denied access page.
      * @return view of the denied access page
      */
+    @SuppressWarnings("SameReturnValue")
     @RequestMapping(value = "/denied", method = RequestMethod.GET)
     public final String getDeniedPage() {
-        logger.debug("Received request to show denied page");
+        LOGGER.debug("Received request to show denied page");
         return "/deniedpage";
     }
 
@@ -152,12 +154,13 @@ public class LoginLogoutController {
      * @param model the model and view
      * @return the view
      */
+    @SuppressWarnings("SameReturnValue")
     @RequestMapping(value = "/passwordsubmit", method = RequestMethod.POST)
     public final String getForgottenPasswordSubmit(
             @ModelAttribute("forgottenPasswordForm")
                 final ForgottenPasswordForm forgottenPasswordForm,
             final BindingResult result, ModelMap model) {
-        logger.debug("Received request to reset password for user "
+        LOGGER.debug("Received request to reset password for user "
                 + forgottenPasswordForm.getUsername());
 
         String password = userLoginService.
@@ -178,7 +181,7 @@ public class LoginLogoutController {
             this.mailSender.send(message);
 
         } else {
-            logger.debug("user " + forgottenPasswordForm.getUsername()
+            LOGGER.debug("user " + forgottenPasswordForm.getUsername()
                     + " not found");
         }
 
@@ -192,6 +195,7 @@ public class LoginLogoutController {
      * @param model the model and view
      * @return the view
      */
+    @SuppressWarnings("SameReturnValue")
     @RequestMapping("/forgottenpassword")
     public final String getForgottenPasswordPage(ModelMap model) {
         model.put("command", new ForgottenPasswordForm());
@@ -203,6 +207,7 @@ public class LoginLogoutController {
      * @param model model and view
      * @return the view
      */
+    @SuppressWarnings("SameReturnValue")
     @RequestMapping("/createaccount")
     public final String getNewAccountPage(ModelMap model) {
         model.put("command", new NewAccountForm());
@@ -216,6 +221,7 @@ public class LoginLogoutController {
      * @param model model
      * @return the view
      */
+    @SuppressWarnings("SameReturnValue")
     @RequestMapping("/accountsubmit")
     public final String createAccount(
             @ModelAttribute("newAccountForm")

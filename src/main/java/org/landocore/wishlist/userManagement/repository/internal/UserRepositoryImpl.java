@@ -1,12 +1,11 @@
-package org.landocore.wishlist.userManagement.repository.internal;
+package org.landocore.wishlist.usermanagement.repository.internal;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.landocore.wishlist.common.repository.internal.AbstractDaoImpl;
-import org.landocore.wishlist.userManagement.domain.User;
-import org.landocore.wishlist.userManagement.repository.UserRepository;
-import org.springframework.stereotype.Repository;
+import org.landocore.wishlist.usermanagement.domain.User;
+import org.landocore.wishlist.usermanagement.repository.UserRepository;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
  * Date: 28/07/13
  * Time: 07:54
  * Implementation of the user repository
- * @see org.landocore.wishlist.userManagement.repository.UserRepository
+ * @see org.landocore.wishlist.usermanagement.repository.UserRepository
  */
 
 public class UserRepositoryImpl extends AbstractDaoImpl<User, Long>
@@ -32,7 +31,7 @@ public class UserRepositoryImpl extends AbstractDaoImpl<User, Long>
 
 
     @Override
-    public final User findByLogin(final String login) {
+    public User findByLogin(final String login) {
         Criterion criterion = Restrictions.eq("username", login);
         List<User> ret = super.findByCriteria(criterion);
         if (ret == null || ret.isEmpty()) {

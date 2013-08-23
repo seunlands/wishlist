@@ -1,7 +1,7 @@
-package org.landocore.wishlist.userManagement.service;
+package org.landocore.wishlist.usermanagement.service;
 
-import org.landocore.wishlist.userManagement.domain.User;
-import org.landocore.wishlist.userManagement.service.internal.
+import org.landocore.wishlist.usermanagement.domain.User;
+import org.landocore.wishlist.usermanagement.service.internal.
         AuthenticationUserDetails;
 
 /**

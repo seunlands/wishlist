@@ -22,7 +22,8 @@ public final class LibelleUtil {
     /**
      * the logger.
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(LibelleUtil.class);
+    private static final Logger LOGGER = LoggerFactory.
+            getLogger(LibelleUtil.class);
 
     /**
      * replaces the {n} (n is a integer) in InputStream with args[n].
@@ -32,7 +33,7 @@ public final class LibelleUtil {
      */
     public static String getString(
             final InputStream inputStream, final Object[] args) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         if (inputStream != null) {
             InputStreamReader isr = new InputStreamReader(inputStream);
 
