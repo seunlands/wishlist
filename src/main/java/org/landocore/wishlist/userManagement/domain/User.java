@@ -1,4 +1,4 @@
-package org.landocore.wishlist.userManagement.domain;
+package org.landocore.wishlist.usermanagement.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -58,7 +58,7 @@ public class User implements Serializable {
      * List of authorities of the user.
      */
     @ManyToMany(targetEntity =
-            org.landocore.wishlist.userManagement.domain.Authority.class)
+            org.landocore.wishlist.usermanagement.domain.Authority.class)
     @JoinTable(name = "wl_tr_user_authority",
         joinColumns = { @JoinColumn(name = "user_id",
                 referencedColumnName = "user_id") },

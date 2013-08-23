@@ -1,4 +1,4 @@
-package org.landocore.wishlist.userManagement.web;
+package org.landocore.wishlist.usermanagement.web;
 
 /**
  * Created with IntelliJ IDEA.

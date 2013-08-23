@@ -24,8 +24,10 @@
         <postgre.version>9.1-901.jdbc4</postgre.version>
         <servlet.version>3.1.0</servlet.version>
         <slf4j.version>1.7.5</slf4j.version>
+        <sonar.version>2.1</sonar.version>
         <spring.security.version>3.1.4.RELEASE</spring.security.version>
         <spring.version>3.2.3.RELEASE</spring.version>
+        <surefire.version>2.16</surefire.version>
         <tiles.version>3.0.1</tiles.version>
     </properties>
 
@@ -321,8 +323,6 @@
             </dependency>
 
 
-
-
         </dependencies>
     </dependencyManagement>
 
@@ -531,6 +531,20 @@
                     </dependency>
                 </dependencies>
 
+            </plugin>
+
+            <!-- sonar plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar.version}</version>
+            </plugin>
+
+            <!-- surefire plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
             </plugin>
 
         </plugins>

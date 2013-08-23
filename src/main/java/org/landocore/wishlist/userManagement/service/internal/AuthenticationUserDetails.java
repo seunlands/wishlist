@@ -1,7 +1,7 @@
-package org.landocore.wishlist.userManagement.service.internal;
+package org.landocore.wishlist.usermanagement.service.internal;
 
-import org.landocore.wishlist.userManagement.domain.Authority;
-import org.landocore.wishlist.userManagement.domain.User;
+import org.landocore.wishlist.usermanagement.domain.Authority;
+import org.landocore.wishlist.usermanagement.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +23,7 @@ public class AuthenticationUserDetails implements UserDetails {
     /**
      * id of the user.
      */
-    private Long id;
+    private final Long id;
 
     /**
      * login of the user.

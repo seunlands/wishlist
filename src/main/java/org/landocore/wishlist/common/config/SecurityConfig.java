@@ -1,7 +1,6 @@
 package org.landocore.wishlist.common.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
@@ -12,11 +11,9 @@ import org.springframework.security.access.vote.AuthenticatedVoter;
 import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.authentication.dao.
         DaoAuthenticationProvider;
-import org.springframework.security.authentication.dao.ReflectionSaltSource;
-import org.springframework.security.authentication.dao.SaltSource;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.filter.DelegatingFilterProxy;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +26,7 @@ import java.util.List;
  * Spring security configuration
  */
 @Configuration
-@ImportResource("/WEB-INF/applicationContextSecurity.xml")
+@ImportResource("classpath*:applicationContextSecurity.xml")
 public class SecurityConfig {
 
     /**
@@ -39,25 +36,13 @@ public class SecurityConfig {
     private UserDetailsService userDetailsService;
 
 
-
-    /**
-     * instantiates the salt source.
-     * @return SaltSource
-     */
-    @Bean
-    public SaltSource saltSource() {
-        ReflectionSaltSource saltSource = new ReflectionSaltSource();
-        saltSource.setUserPropertyToUse("username");
-        return saltSource;
-    }
-
     /**
      * Instantiates the password encoder.
      * @return ShaPasswordEncoder
      */
     @Bean
-    public ShaPasswordEncoder passwordEncoder() {
-        return new ShaPasswordEncoder(256);
+    public PasswordEncoder passwordEncoder() {
+        return new StandardPasswordEncoder();
     }
 
     /**
@@ -69,7 +54,6 @@ public class SecurityConfig {
         DaoAuthenticationProvider authenticationProvider =
                 new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
-        authenticationProvider.setSaltSource(saltSource());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
@@ -87,6 +71,5 @@ public class SecurityConfig {
         AuthenticatedVoter authenticatedVoter = new AuthenticatedVoter();
         lstVoters.add(authenticatedVoter);
         return new AffirmativeBased(lstVoters);
-
     }
 }

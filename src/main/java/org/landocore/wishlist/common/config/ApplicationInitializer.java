@@ -47,10 +47,10 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("*.do");
 
-//        //declare logback status servlet
-//        ServletRegistration.Dynamic viewStatusMessages = servletContext.
-//                addServlet("viewStatusMessages",
-//                        new ViewStatusMessagesServlet());
+        //declare logback status servlet
+        ServletRegistration.Dynamic viewStatusMessages = servletContext.
+                addServlet("viewStatusMessages",
+                        new ViewStatusMessagesServlet());
 
 
         //add filter for Spring Security
@@ -60,10 +60,10 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         springSecurityFilterChain.addMappingForUrlPatterns(null, false, "/*");
 
 
-//        //add filter for LogBack access
-//        FilterRegistration.Dynamic teeFilter = servletContext.
-//                addFilter("teeFilter", new TeeFilter());
-//        teeFilter.addMappingForUrlPatterns(null, false, "/*");
+        //add filter for LogBack access
+        FilterRegistration.Dynamic teeFilter = servletContext.
+                addFilter("teeFilter", new TeeFilter());
+        teeFilter.addMappingForUrlPatterns(null, false, "/*");
 
 
     }

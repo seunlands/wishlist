@@ -1,6 +1,6 @@
 package org.landocore.wishlist.common.config;
 
-import org.landocore.wishlist.userManagement.repository.internal.
+import org.landocore.wishlist.usermanagement.repository.internal.
         UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -76,7 +76,8 @@ public class DataConfig extends WebMvcConfigurerAdapter {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setAnnotatedClasses(this.getHibernateAnnotatedEntities());
+        sessionFactory.setAnnotatedClasses(this.
+                getHibernateAnnotatedEntities());
 
         Properties props = new Properties();
         props.put("hibernate.dialect",
@@ -102,12 +103,13 @@ public class DataConfig extends WebMvcConfigurerAdapter {
 
 
     /**
-     * gets hibernate annotated classes
+     * gets hibernate annotated classes.
+     * @return Class<?>[] with the annotated hibernate classes
      */
     private Class<?>[] getHibernateAnnotatedEntities() {
         return new Class<?>[]{
-            org.landocore.wishlist.userManagement.domain.Authority.class,
-            org.landocore.wishlist.userManagement.domain.User.class
+            org.landocore.wishlist.usermanagement.domain.Authority.class,
+            org.landocore.wishlist.usermanagement.domain.User.class
         };
     }
 
