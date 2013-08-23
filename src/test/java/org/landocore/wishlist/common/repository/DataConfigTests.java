@@ -1,7 +1,6 @@
-package org.landocore.wishlist.common.config;
+package org.landocore.wishlist.common.repository;
 
-import org.landocore.wishlist.userManagement.repository.internal.UserRepositoryImpl;
-import org.springframework.beans.factory.annotation.Value;
+import org.landocore.wishlist.usermanagement.repository.internal.UserRepositoryImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -21,7 +20,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-public class TestDataConfig {
+public class DataConfigTests {
 
 
     /**
@@ -80,8 +79,8 @@ public class TestDataConfig {
      */
     private Class<?>[] getHibernateAnnotatedEntities() {
         return new Class<?>[]{
-            org.landocore.wishlist.userManagement.domain.Authority.class,
-            org.landocore.wishlist.userManagement.domain.User.class
+            org.landocore.wishlist.usermanagement.domain.Authority.class,
+            org.landocore.wishlist.usermanagement.domain.User.class
         };
     }
 

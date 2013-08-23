@@ -1,17 +1,12 @@
-package org.landocore.wishlist.userManagement.repository;
+package org.landocore.wishlist.usermanagement.repository;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.landocore.wishlist.common.config.TestDataConfig;
-import org.landocore.wishlist.userManagement.domain.User;
+import org.landocore.wishlist.common.repository.AbstractRepositoryTesting;
+import org.landocore.wishlist.usermanagement.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -24,9 +19,8 @@ import static org.junit.Assert.assertNull;
  * Time: 11:54
  * Unit test for user repository.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestDataConfig.class, loader = AnnotationConfigContextLoader.class)
-public class UserRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests{
+
+public class UserRepositoryTest extends AbstractRepositoryTesting {
 
     @Autowired
     private UserRepository userRepository;
@@ -36,7 +30,7 @@ public class UserRepositoryTest extends AbstractTransactionalJUnit4SpringContext
         //on ajoute des user dans la base
         {
             User user = new User("test", "test", "test");
-            userRepository.saveOrUpdate(user);
+            userRepository.save(user);
         }
     }
 
@@ -88,7 +82,18 @@ public class UserRepositoryTest extends AbstractTransactionalJUnit4SpringContext
             }
         }
 
+    }
 
+    @Test
+    public void testFindByEmail(){
+        //user in db
+        User user = userRepository.findByEmail("test");
+        assertNotNull("User shouldn't be null", user);
+        assertEquals("Username is not correct", "test", user.getUsername());
+
+        //user not in db
+        User user1 = userRepository.findByEmail("not there");
+        assertNull("User should be null", user1);
 
     }
 }
