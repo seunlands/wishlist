@@ -2,8 +2,9 @@ package org.landocore.wishlist.usermanagement.service.internal;
 
 import org.landocore.wishlist.usermanagement.domain.User;
 import org.landocore.wishlist.usermanagement.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("userDetailsService")
 public class AuthenticationUserDetailsGetter implements UserDetailsService {
+
+    /**
+     * the LOGGER.
+     */
+    private static final Logger LOGGER = LoggerFactory.
+            getLogger(AuthenticationUserDetailsGetter .class);
 
     /**
      * User repo to be used (Spring dep injection).
@@ -43,13 +50,21 @@ public class AuthenticationUserDetailsGetter implements UserDetailsService {
 
     @Override
     @Transactional
-    public final UserDetails loadUserByUsername(final String pUsername)
-            throws UsernameNotFoundException, DataAccessException {
+    public final UserDetails loadUserByUsername(final String pUsername) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Load user with username" + pUsername);
+        }
         User user = userRepository.findByLogin(pUsername);
         try {
             throwExceptionIfNotFound(user, pUsername);
         } catch (UsernameNotFoundException e) {
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("Error : Username " + pUsername + " not found");
+            }
             throw e;
+        }
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("User " + pUsername + " fount returning");
         }
         return new AuthenticationUserDetails(user);
     }
@@ -58,10 +73,9 @@ public class AuthenticationUserDetailsGetter implements UserDetailsService {
      * checks if user found.
      * @param pUser user to be checked
      * @param pLogin username to be checked
-     * @throws org.springframework.security.core.userdetails.UsernameNotFoundException if user not found
      */
-    private void throwExceptionIfNotFound(final User pUser, final String pLogin)
-            throws UsernameNotFoundException {
+    private void throwExceptionIfNotFound(final User pUser,
+            final String pLogin) {
         if (pUser == null) {
             throw new UsernameNotFoundException("User with login "
                     + pLogin + " has not been found.");

@@ -1,5 +1,6 @@
 package org.landocore.wishlist.common.config;
 
+import org.landocore.wishlist.common.exception.DatabaseInitException;
 import org.landocore.wishlist.usermanagement.repository.internal.
         UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Value;
@@ -64,7 +65,7 @@ public class DataConfig extends WebMvcConfigurerAdapter {
             dataSource.setPassword(password);
             return dataSource;
         } catch (IllegalStateException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseInitException(e);
         }
     }
 

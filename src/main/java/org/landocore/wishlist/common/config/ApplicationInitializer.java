@@ -51,6 +51,7 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic viewStatusMessages = servletContext.
                 addServlet("viewStatusMessages",
                         new ViewStatusMessagesServlet());
+        viewStatusMessages.addMapping("/viewStatusMessages");
 
 
         //add filter for Spring Security

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,7 +44,7 @@ public class AuthenticationUserDetails implements UserDetails {
     /**
      * the authorities of the user.
      */
-    private HashSet<GrantedAuthority> grantedAuthorities = new HashSet<>();
+    private Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
 
     /**

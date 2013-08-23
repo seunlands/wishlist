@@ -31,6 +31,7 @@ import java.util.ResourceBundle;
 
 @Controller
 @RequestMapping("/auth")
+@SuppressWarnings("SameReturnValue")
 public class LoginLogoutController {
 
     /**
@@ -117,7 +118,6 @@ public class LoginLogoutController {
      * @param model model and map of the view
      * @return the view name
      */
-    @SuppressWarnings("SameReturnValue")
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public final String getLoginPage(
             @RequestParam(
@@ -139,7 +139,6 @@ public class LoginLogoutController {
      * Request to show the denied access page.
      * @return view of the denied access page
      */
-    @SuppressWarnings("SameReturnValue")
     @RequestMapping(value = "/denied", method = RequestMethod.GET)
     public final String getDeniedPage() {
         LOGGER.debug("Received request to show denied page");
@@ -154,7 +153,6 @@ public class LoginLogoutController {
      * @param model the model and view
      * @return the view
      */
-    @SuppressWarnings("SameReturnValue")
     @RequestMapping(value = "/passwordsubmit", method = RequestMethod.POST)
     public final String getForgottenPasswordSubmit(
             @ModelAttribute("forgottenPasswordForm")
@@ -195,7 +193,6 @@ public class LoginLogoutController {
      * @param model the model and view
      * @return the view
      */
-    @SuppressWarnings("SameReturnValue")
     @RequestMapping("/forgottenpassword")
     public final String getForgottenPasswordPage(ModelMap model) {
         model.put("command", new ForgottenPasswordForm());
@@ -207,7 +204,6 @@ public class LoginLogoutController {
      * @param model model and view
      * @return the view
      */
-    @SuppressWarnings("SameReturnValue")
     @RequestMapping("/createaccount")
     public final String getNewAccountPage(ModelMap model) {
         model.put("command", new NewAccountForm());
@@ -221,7 +217,6 @@ public class LoginLogoutController {
      * @param model model
      * @return the view
      */
-    @SuppressWarnings("SameReturnValue")
     @RequestMapping("/accountsubmit")
     public final String createAccount(
             @ModelAttribute("newAccountForm")
