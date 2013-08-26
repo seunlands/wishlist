@@ -1,10 +1,9 @@
 package org.landocore.wishlist.usermanagement.web;
 
-
-import org.landocore.wishlist.usermanagement.domain.User;
-import org.landocore.wishlist.usermanagement.service.UserLoginService;
-import org.landocore.wishlist.usermanagement.service.UserService;
+import org.landocore.wishlist.common.exception.IncompleteUserException;
 import org.landocore.wishlist.common.utils.LibelleUtil;
+import org.landocore.wishlist.usermanagement.domain.User;
+import org.landocore.wishlist.usermanagement.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,133 +15,69 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.InputStream;
 import java.util.ResourceBundle;
 
 /**
  * Created with IntelliJ IDEA.
- * User: seun
- * Date: 28/07/13
- * Time: 09:03
- * Controller for the actions of user management
+ * User: LANDSBERG-S
+ * Date: 25/08/13
+ * Time: 20:43
+ * MVC controller to control the user management.
  */
 
 @Controller
-@RequestMapping("/auth")
-@SuppressWarnings("SameReturnValue")
-public class LoginLogoutController {
+@RequestMapping("/user")
+public class UserMgmtController {
 
     /**
-     * the LOGGER.
+     * the SLF4J logger.
      */
     private static final Logger LOGGER = LoggerFactory.
-            getLogger(LoginLogoutController.class);
-
-    /**
-     * injection dependency spring userLoginService.
-     */
-    private UserLoginService userLoginService;
-
-    /**
-     * setter of userLoginService.
-     * @param pUserLoginService the uses login service to use
-     */
-    @Autowired
-    public final void setUserLoginService(
-            final UserLoginService pUserLoginService) {
-        this.userLoginService = pUserLoginService;
-    }
-
-    /**
-     * the mailsender.
-     */
-    private MailSender mailSender;
-
-    /**
-     * sete of the mailsender.
-     * @param pMailSender mail sender to use
-     */
-    @Autowired
-    public final void setMailSender(final MailSender pMailSender) {
-        this.mailSender = pMailSender;
-    }
-
-    /**
-     * the mail template.
-     */
-    private SimpleMailMessage templateMessage;
-
-    /**
-     * setter of the mail template.
-     * @param pTemplateMessage SimpleMailMessage template to use
-     */
-    @Autowired
-    public final void setTemplateMessage(
-            final SimpleMailMessage pTemplateMessage) {
-        this.templateMessage = pTemplateMessage;
-    }
+            getLogger(UserMgmtController.class);
 
     /**
      * the spring dep userService.
      */
+    @Autowired
     private UserService userService;
 
+
     /**
-     * setter of the userService.
-     * @param pUserService the user service to use
+     * the mailsender.
      */
     @Autowired
-    public final void setUserService(final UserService pUserService) {
-        this.userService = pUserService;
-    }
+    private MailSender mailSender;
+
+    /**
+     * the mail template.
+     */
+    @Autowired
+    private SimpleMailMessage templateMessage;
 
     /**
      * resource bundle regarding the emails.
      */
+    @Autowired
     private ResourceBundle emailBundle;
 
-    /**
-     * setter of the emailBundle.
-     * @param pEmailBundle the ResourceBundle to use for email
-     */
-    @Autowired
-    public final void setEmailBundle(final ResourceBundle pEmailBundle) {
-        this.emailBundle = pEmailBundle;
-    }
+
+
 
     /**
-     * Request for login page.
-     * @param error request parameter error
-     * @param model model and map of the view
-     * @return the view name
+     * Request for new password page.
+     * @param model the model and view
+     * @return the view
      */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public final String getLoginPage(
-            @RequestParam(
-                    value = "error", required = false) final boolean error,
-            ModelMap model) {
-        LOGGER.debug("Received request to show login page");
-
-        if (error) {
-            model.put("error", "You have enter invalid credentials");
-        } else {
-            model.put("error", "");
+    @RequestMapping("/forgottenpassword")
+    public final String getForgottenPasswordPage(ModelMap model) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Request to reset password page");
         }
-
-        return "/loginpage";
-    }
-
-
-    /**
-     * Request to show the denied access page.
-     * @return view of the denied access page
-     */
-    @RequestMapping(value = "/denied", method = RequestMethod.GET)
-    public final String getDeniedPage() {
-        LOGGER.debug("Received request to show denied page");
-        return "/deniedpage";
+        model.put("command", new ForgottenPasswordForm());
+        model.remove("msg");
+        return "/password";
     }
 
 
@@ -156,12 +91,13 @@ public class LoginLogoutController {
     @RequestMapping(value = "/passwordsubmit", method = RequestMethod.POST)
     public final String getForgottenPasswordSubmit(
             @ModelAttribute("forgottenPasswordForm")
-                final ForgottenPasswordForm forgottenPasswordForm,
+            final ForgottenPasswordForm forgottenPasswordForm,
             final BindingResult result, ModelMap model) {
+
         LOGGER.debug("Received request to reset password for user "
                 + forgottenPasswordForm.getUsername());
 
-        String password = userLoginService.
+        String password = userService.
                 resetPassword(forgottenPasswordForm.getUsername());
         if (password != null) {
             SimpleMailMessage message =
@@ -189,17 +125,6 @@ public class LoginLogoutController {
 
 
     /**
-     * Request for new password page.
-     * @param model the model and view
-     * @return the view
-     */
-    @RequestMapping("/forgottenpassword")
-    public final String getForgottenPasswordPage(ModelMap model) {
-        model.put("command", new ForgottenPasswordForm());
-        return "/password";
-    }
-
-    /**
      * Request for new account.
      * @param model model and view
      * @return the view
@@ -220,14 +145,59 @@ public class LoginLogoutController {
     @RequestMapping("/accountsubmit")
     public final String createAccount(
             @ModelAttribute("newAccountForm")
-                final NewAccountForm newAccountForm,
+            final NewAccountForm newAccountForm,
             final BindingResult result, ModelMap model) {
         User user = new User(newAccountForm.getUsername(),
                 newAccountForm.getEmail(), newAccountForm.getPassword());
-        userService.createUser(user);
-        model.put("message", "Account created");
+        try {
+            userService.createUser(user);
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("account for user " + user.getUsername()
+                        + " created");
+            }
+            model.put("message", "Account created");
+        } catch (IncompleteUserException e) {
+            LOGGER.warn("Account creation for user " + user.getUsername()
+                    + " failed. Reason : " + e.getMessage());
+            model.put("message", "Account creation failed");
+        }
         return "/loginpage";
     }
 
+
+
+    //-----------------setter and getters
+    /**
+     * setter of the userService.
+     * @param pUserService the user service to use
+     */
+    public final void setUserService(final UserService pUserService) {
+        this.userService = pUserService;
+    }
+
+    /**
+     * setter of the mailsender.
+     * @param pMailSender mail sender to use
+     */
+    public final void setMailSender(final MailSender pMailSender) {
+        this.mailSender = pMailSender;
+    }
+
+    /**
+     * setter of the mail template.
+     * @param pTemplateMessage SimpleMailMessage template to use
+     */
+    public final void setTemplateMessage(
+            final SimpleMailMessage pTemplateMessage) {
+        this.templateMessage = pTemplateMessage;
+    }
+
+    /**
+     * setter of the emailBundle.
+     * @param pEmailBundle the ResourceBundle to use for email
+     */
+    public final void setEmailBundle(final ResourceBundle pEmailBundle) {
+        this.emailBundle = pEmailBundle;
+    }
 
 }

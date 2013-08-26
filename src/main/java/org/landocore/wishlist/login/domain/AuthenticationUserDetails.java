@@ -1,4 +1,4 @@
-package org.landocore.wishlist.usermanagement.service.internal;
+package org.landocore.wishlist.login.domain;
 
 import org.landocore.wishlist.usermanagement.domain.Authority;
 import org.landocore.wishlist.usermanagement.domain.User;
@@ -112,7 +112,7 @@ public class AuthenticationUserDetails implements UserDetails {
     private List<GrantedAuthority> getGrantedAuthoritiesFromUser(
             final List<Authority> lstAuthority) {
         if (lstAuthority == null || lstAuthority.isEmpty()) {
-            return null;
+            return new ArrayList();
         }
         List<GrantedAuthority> lstGrantedAuthorities = new ArrayList<>();
         for (Authority auth : lstAuthority) {

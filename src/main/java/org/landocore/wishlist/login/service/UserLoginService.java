@@ -1,8 +1,7 @@
-package org.landocore.wishlist.usermanagement.service;
+package org.landocore.wishlist.login.service;
 
 import org.landocore.wishlist.usermanagement.domain.User;
-import org.landocore.wishlist.usermanagement.service.internal.
-        AuthenticationUserDetails;
+import org.landocore.wishlist.login.domain.AuthenticationUserDetails;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,10 +50,4 @@ public interface UserLoginService {
      */
     boolean isLoggedIn();
 
-    /**
-     * Resets the users password.
-     * @param pUsername User's username
-     * @return the password
-     */
-    String resetPassword(String pUsername);
 }

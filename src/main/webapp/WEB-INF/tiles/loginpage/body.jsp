@@ -19,7 +19,7 @@
 
     <input  type="submit" value="Login"/>
     <p>
-    Forgot the password ? Click <a href="<c:url value='/auth/forgottenpassword.do' />" title="Forgotten password">here</a> <br />
-    Wanna join ? <a href="<c:url value='/auth/createaccount.do' />" title="New Account">Create your account</a>
+    Forgot the password ? Click <a href="<c:url value='/user/forgottenpassword.do' />" title="Forgotten password">here</a> <br />
+    Wanna join ? <a href="<c:url value='/user/createaccount.do' />" title="New Account">Create your account</a>
     </p>
 </form>

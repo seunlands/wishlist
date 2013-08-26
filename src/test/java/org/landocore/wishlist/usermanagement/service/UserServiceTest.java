@@ -1,11 +1,15 @@
 package org.landocore.wishlist.usermanagement.service;
 
+import org.junit.Assert;
 import org.hibernate.criterion.Criterion;
 import org.junit.Before;
 import org.junit.Test;
+import org.landocore.wishlist.common.exception.IncompleteUserException;
 import org.landocore.wishlist.usermanagement.domain.User;
 import org.landocore.wishlist.usermanagement.repository.UserRepository;
 import org.landocore.wishlist.usermanagement.service.internal.UserServiceImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +17,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +30,8 @@ import static org.junit.Assert.assertNull;
 public class UserServiceTest {
 
     private UserServiceImpl userService;
+
+    private PasswordEncoder passwordEncoder;
 
     private final static String RETURN_NULL = "returnNull";
 
@@ -44,7 +51,8 @@ public class UserServiceTest {
 
             @Override
             public User save(User pUser) {
-                return null;
+                pUser.setId(999L);
+                return pUser;
             }
 
             @Override
@@ -59,7 +67,7 @@ public class UserServiceTest {
 
             @Override
             public void saveOrUpdate(User entity) {
-
+                entity.setId(999L);
             }
 
             @Override
@@ -78,6 +86,9 @@ public class UserServiceTest {
             }
         } ;
         userService.setUserRepository(userRepo);
+
+        passwordEncoder = new StandardPasswordEncoder();
+        userService.setPasswordEncoder(passwordEncoder);
     }
 
     @Test
@@ -90,6 +101,30 @@ public class UserServiceTest {
         assertNull("User should be NULL", userNull);
     }
 
+    @Test
+    public final void testCreateUser() throws IncompleteUserException {
 
+        User user = new User("test", "test", "test");
+        user = userService.createUser(user);
+        assertNotNull("user shouldn't be NULL", user);
+        assertEquals("id should be 999", 999L, (long)user.getId());
+        assertTrue("encoded password isn't correct", passwordEncoder.matches("test", user.getPassword()));
+
+
+        //null user
+        user = null;
+        user = userService.createUser(user);
+        assertNull("user should be NULL", user);
+
+        //null password
+        user = new User("test", "test", null );
+        try{
+            user = userService.createUser(user);
+            Assert.fail();
+        } catch (IncompleteUserException e) {
+
+        }
+
+    }
 
 }

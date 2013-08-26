@@ -1,5 +1,6 @@
-package org.landocore.wishlist.usermanagement.service.internal;
+package org.landocore.wishlist.login.service.internal;
 
+import org.landocore.wishlist.login.domain.AuthenticationUserDetails;
 import org.landocore.wishlist.usermanagement.domain.User;
 import org.landocore.wishlist.usermanagement.repository.UserRepository;
 import org.slf4j.Logger;
@@ -64,7 +65,7 @@ public class AuthenticationUserDetailsGetter implements UserDetailsService {
             throw e;
         }
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("User " + pUsername + " fount returning");
+            LOGGER.debug("User " + pUsername + " found -> returning");
         }
         return new AuthenticationUserDetails(user);
     }

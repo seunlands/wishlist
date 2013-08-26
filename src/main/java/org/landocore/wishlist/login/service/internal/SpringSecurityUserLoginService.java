@@ -1,12 +1,11 @@
-package org.landocore.wishlist.usermanagement.service.internal;
+package org.landocore.wishlist.login.service.internal;
 
+import org.landocore.wishlist.login.domain.AuthenticationUserDetails;
 import org.landocore.wishlist.usermanagement.domain.User;
 import org.landocore.wishlist.usermanagement.repository.UserRepository;
-import org.landocore.wishlist.usermanagement.service.UserLoginService;
-import org.landocore.wishlist.common.utils.StringUtils;
+import org.landocore.wishlist.login.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.
@@ -15,9 +14,7 @@ import org.springframework.security.authentication.
         UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,19 +38,6 @@ public class SpringSecurityUserLoginService implements UserLoginService {
     @Autowired
     @Qualifier("authenticationManager")
     private AuthenticationManager authenticationManager;
-
-    /**
-     * the password hasher.
-     */
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    /**
-     * the minimum password length.
-
-     */
-    @Value("${wishlist.password.min.length}")
-    private int passwordLength;
 
 
     @Override
@@ -126,20 +110,6 @@ public class SpringSecurityUserLoginService implements UserLoginService {
         return isAuthenticated(authentication);
     }
 
-    @Override
-    @Transactional
-    public final String resetPassword(final String pUsername) {
-        User user = userRepository.findByLogin(pUsername);
-        String newPassword = null;
-        if (user != null) {
-            newPassword = StringUtils.generateRandomPassword(passwordLength);
-            String password = passwordEncoder.encode(newPassword);
-            user.setPassword(password);
-            userRepository.saveOrUpdate(user);
-        }
-        return newPassword;
-    }
-
     /**
      * checks if the user is authenticated.
      * @param pAuthentication authentication context
@@ -170,23 +140,5 @@ public class SpringSecurityUserLoginService implements UserLoginService {
                                                        pAuthenticationManager) {
         this.authenticationManager = pAuthenticationManager;
     }
-
-    /**
-     * setter of password encoder.
-     * @param pPasswordEncoder password encoder to be used.
-     */
-    public final void setPasswordEncoder(
-            final PasswordEncoder pPasswordEncoder) {
-        this.passwordEncoder = pPasswordEncoder;
-    }
-
-    /**
-     * setter of the password length.
-     * @param pPasswordLength length og the password
-     */
-    public final void setPasswordLength(final int pPasswordLength) {
-        this.passwordLength = pPasswordLength;
-    }
-
 
 }
