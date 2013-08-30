@@ -1,1 +1,0 @@
-<META http-EQUIV="Refresh" CONTENT="Temps; url=accueil/init.do">

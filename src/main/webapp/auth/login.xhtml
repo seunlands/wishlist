@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>Login into WishList</title>
+</h:head>
+
+<h:body>
+    <h:form>
+        <!-- Messages must be global here, to show bad credentials -->
+        <h:messages globalOnly="true"/>
+
+        <!-- Id's must not be changed to support spring security check -->
+        <h:panelGrid columns="3">
+            <h:outputLabel for="username" value="User: * " />
+            <h:inputText id="username" required="true" label="username" value="#{loginFormBackingBean.userName}" />
+            <h:message for="username" display="text" style="color:red"/>
+
+            <h:outputLabel for="password" value="Password: * " />
+            <h:inputSecret id="password" label="password" required="true" value  ="#{loginFormBackingBean.password}" />
+            <h:message for="password" display="text" style="color:red"/>
+
+        </h:panelGrid>
+
+        <h:commandButton type="submit" id="login" value="Login"
+                         action="#{loginLogoutController.doLogin}" />
+    </h:form>
+    <h:panelGrid>
+        <h:link value="Forgot your password, don't worry : click here" outcome="/user/resetPassword" />
+    </h:panelGrid>
+
+</h:body>
+
+</html>

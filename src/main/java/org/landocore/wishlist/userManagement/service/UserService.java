@@ -32,9 +32,9 @@ public interface UserService {
     /**
      * Resets the users password.
      * @param pUsername User's username
-     * @return the password
+     * @return the user with raw password
      */
-    String resetPassword(String pUsername);
+    User resetPassword(String pUsername);
 
 
 }

@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public final String resetPassword(final String pUsername) {
+    public final User resetPassword(final String pUsername) {
         User user = userRepository.findByLogin(pUsername);
         String newPassword = null;
         if (user != null) {
@@ -73,8 +73,9 @@ public class UserServiceImpl implements UserService {
             String password = passwordEncoder.encode(newPassword);
             user.setPassword(password);
             userRepository.saveOrUpdate(user);
+            user.setPassword(newPassword);
         }
-        return newPassword;
+        return user;
     }
 
 

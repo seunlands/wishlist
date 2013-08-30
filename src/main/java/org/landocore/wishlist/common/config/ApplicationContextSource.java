@@ -12,13 +12,6 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.filter.DelegatingFilterProxy;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.
-        WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
-import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
-import org.springframework.web.servlet.view.tiles3.TilesView;
-
 import java.util.ResourceBundle;
 
 /**
@@ -31,9 +24,8 @@ import java.util.ResourceBundle;
 
 @Configuration
 @ComponentScan(basePackages = { "org.landocore.wishlist" })
-@EnableWebMvc
 @Import({ DataConfig.class, SecurityConfig.class })
-public class ApplicationContextSource extends WebMvcConfigurerAdapter {
+public class ApplicationContextSource {
 
     /**
      * the mail sender hostname.
@@ -61,28 +53,6 @@ public class ApplicationContextSource extends WebMvcConfigurerAdapter {
         properties.setLocations(resources);
         properties.setIgnoreUnresolvablePlaceholders(true);
         return properties;
-    }
-
-    /**
-     * the spring view resolver.
-     * @return spring view resolver
-     */
-    @Bean
-    public UrlBasedViewResolver urlBasedViewResolver() {
-        UrlBasedViewResolver urlBasedViewResolver = new UrlBasedViewResolver();
-        urlBasedViewResolver.setViewClass(TilesView.class);
-        return urlBasedViewResolver;
-    }
-
-    /**
-     * instanciate a TilesConfigurer.
-     * @return the tilesConfigurer
-     */
-    @Bean
-         public TilesConfigurer tilesConfigurer() {
-        TilesConfigurer tilesConfigurer = new TilesConfigurer();
-        tilesConfigurer.setDefinitions(new String[]{"/WEB-INF/tiles.xml"});
-        return tilesConfigurer;
     }
 
     /**

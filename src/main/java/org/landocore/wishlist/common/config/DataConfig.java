@@ -10,8 +10,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.
-        WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -25,7 +23,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-public class DataConfig extends WebMvcConfigurerAdapter {
+public class DataConfig {
 
     /**
      * url de la datasource.

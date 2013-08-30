@@ -2,14 +2,15 @@ package org.landocore.wishlist.common.config;
 
 import ch.qos.logback.access.servlet.TeeFilter;
 import ch.qos.logback.classic.ViewStatusMessagesServlet;
+import com.sun.faces.config.ConfigureListener;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.
         AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.DelegatingFilterProxy;
-import org.springframework.web.servlet.DispatcherServlet;
 
+import javax.faces.webapp.FacesServlet;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -42,10 +43,16 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
         //declare dispatcher servlet
-        ServletRegistration.Dynamic dispatcher = servletContext.
-                addServlet("dispatcher", new DispatcherServlet(rootContext));
-        dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("*.do");
+        ServletRegistration.Dynamic facesServlet = servletContext.
+                addServlet("facecServlet", new FacesServlet());
+        facesServlet.setLoadOnStartup(1);
+        facesServlet.addMapping("/faces/*");
+        facesServlet.addMapping("*.jsf");
+        facesServlet.addMapping("*.faces");
+        facesServlet.addMapping("*.xhtml");
+        facesServlet.addMapping("/j_spring_security_check");
+
+
 
         //declare logback status servlet
         ServletRegistration.Dynamic viewStatusMessages = servletContext.
