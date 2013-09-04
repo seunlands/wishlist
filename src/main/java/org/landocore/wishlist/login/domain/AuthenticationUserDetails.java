@@ -21,104 +21,111 @@ import java.util.Set;
  */
 public class AuthenticationUserDetails implements UserDetails {
 
-    /**
-     * id of the user.
-     */
-    private final Long id;
+	/**
+	 * UID.
+	 */
+	private static final long serialVersionUID = -8677749603891130868L;
 
-    /**
-     * login of the user.
-     */
-    private final String login;
+	/**
+	 * id of the user.
+	 */
+	private final Long id;
 
-    /**
-     * the password hash of the user.
-     */
-    private final String passwordHash;
+	/**
+	 * login of the user.
+	 */
+	private final String login;
 
-    /**
-     * the enabled status of the user.
-     */
-    private final boolean enabled;
+	/**
+	 * the password hash of the user.
+	 */
+	private final String passwordHash;
 
-    /**
-     * the authorities of the user.
-     */
-    private Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+	/**
+	 * the enabled status of the user.
+	 */
+	private final boolean enabled;
 
-
-    /**
-     * Constructor of the AuthenticationUseDetails.
-     * @param pUser the user from which to create it
-     */
-    public AuthenticationUserDetails(final User pUser) {
-        this.login = pUser.getUsername();
-        this.passwordHash = pUser.getPassword();
-        this.enabled = pUser.isEnabled();
-        this.id = pUser.getId();
-        this.grantedAuthorities.addAll(
-                this.getGrantedAuthoritiesFromUser(pUser.getListAuthorities()));
-    }
-
-    /**
-     * getter of the id attribute.
-     * @return id of the user
-     */
-    public final Long getId() {
-        return this.id;
-    }
+	/**
+	 * the authorities of the user.
+	 */
+	private Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
 
-    @Override
-    public final Collection<GrantedAuthority> getAuthorities() {
-        return grantedAuthorities;
-    }
+	/**
+	 * Constructor of the AuthenticationUseDetails.
+	 * @param pUser the user from which to create it
+	 */
+	public AuthenticationUserDetails(final User pUser) {
+		this.login = pUser.getUsername();
+		this.passwordHash = pUser.getPassword();
+		this.enabled = pUser.isEnabled();
+		this.id = pUser.getId();
+		this.grantedAuthorities.addAll(
+				this.getGrantedAuthoritiesFromUser(pUser.getListAuthorities()));
+	}
 
-    @Override
-    public final String getPassword() {
-        return passwordHash;
-    }
+	/**
+	 * getter of the id attribute.
+	 * @return id of the user
+	 */
+	public final Long getId() {
+		return this.id;
+	}
 
-    @Override
-    public final String getUsername() {
-        return login;
-    }
 
-    @Override
-    public final boolean isAccountNonExpired() {
-        return true;
-    }
+	@Override
+	public final Collection<GrantedAuthority> getAuthorities() {
+		return grantedAuthorities;
+	}
 
-    @Override
-    public final boolean isAccountNonLocked() {
-        return true;
-    }
+	@Override
+	public final String getPassword() {
+		return passwordHash;
+	}
 
-    @Override
-    public final boolean isCredentialsNonExpired() {
-        return true;
-    }
+	@Override
+	public final String getUsername() {
+		return login;
+	}
 
-    @Override
-    public final boolean isEnabled() {
-        return enabled;
-    }
+	@Override
+	public final boolean isAccountNonExpired() {
+		return true;
+	}
 
-    /**
-     * Transform a list if Authority to a list of GrantedAuhtority.
-     * @param lstAuthority list of Authority to change
-     * @return list of GrantedAuthority
-     */
-    private List<GrantedAuthority> getGrantedAuthoritiesFromUser(
-            final List<Authority> lstAuthority) {
-        if (lstAuthority == null || lstAuthority.isEmpty()) {
-            return new ArrayList();
-        }
-        List<GrantedAuthority> lstGrantedAuthorities = new ArrayList<>();
-        for (Authority auth : lstAuthority) {
-            GrantedAuthority ga = new SimpleGrantedAuthority(auth.getName());
-            lstGrantedAuthorities.add(ga);
-        }
-        return lstGrantedAuthorities;
-    }
+	@Override
+	public final boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public final boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public final boolean isEnabled() {
+		return enabled;
+	}
+
+	/**
+	 * Transform a list if Authority to a list of GrantedAuhtority.
+	 * @param lstAuthority list of Authority to change
+	 * @return list of GrantedAuthority
+	 */
+	private List<GrantedAuthority> getGrantedAuthoritiesFromUser(
+			final List<Authority> lstAuthority) {
+		if (lstAuthority == null || lstAuthority.isEmpty()) {
+			return new ArrayList<>();
+		}
+		List<GrantedAuthority> lstGrantedAuthorities =
+				new ArrayList<>();
+		for (Authority auth : lstAuthority) {
+			GrantedAuthority ga = new
+					SimpleGrantedAuthority(auth.getName());
+			lstGrantedAuthorities.add(ga);
+		}
+		return lstGrantedAuthorities;
+	}
 }

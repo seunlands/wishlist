@@ -1,20 +1,20 @@
 package org.landocore.wishlist.usermanagement.service;
 
-import org.hibernate.criterion.Criterion;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.landocore.wishlist.usermanagement.domain.User;
-import org.landocore.wishlist.usermanagement.repository.UserRepository;
-import org.landocore.wishlist.login.service.internal.AuthenticationUserDetailsGetter;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.hibernate.criterion.Criterion;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.landocore.wishlist.login.service.internal.AuthenticationUserDetailsGetter;
+import org.landocore.wishlist.usermanagement.domain.User;
+import org.landocore.wishlist.usermanagement.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,8 +25,14 @@ import static org.junit.Assert.assertNotNull;
  */
 public class AuthenticationUserDetailsGetterTest {
 
+	/**
+	 * the authenticationuserdetailsgetter to be tested
+	 */
     private AuthenticationUserDetailsGetter authenticationUserDetailsGetter;
 
+    /**
+     * 
+     */
     private static final String USER_NULL = "userNull";
 
 

@@ -12,12 +12,25 @@
             <pattern>%.-1level|%-40.40logger{0}|%msg%n</pattern>
         </encoder>
     </appender>
+    
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+  		<file>${user.dir}/logs/wishlist-app.log</file>
+    	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        	<fileNamePattern>${user.dir}/logs/wishlist-app.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%.-1level|%-40.40logger{0}|%msg%n</pattern>
+        </encoder>    	 
+    </appender>
 
     <logger name="org.springframework" level="warn" />
     <logger name="org.springframework.beans" level="warn" />
+    
 
-    <root level="warn">
+    <root level="debug">
         <appender-ref ref="console" />
+        <appender-ref ref="file" />
     </root>
 
 </configuration>

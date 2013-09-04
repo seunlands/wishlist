@@ -29,8 +29,14 @@ import static org.junit.Assert.assertTrue;
 
 public class UserServiceTest {
 
+	/**
+	 * The user service to be tested.
+	 */
     private UserServiceImpl userService;
 
+    /**
+     * password encoder.
+     */
     private PasswordEncoder passwordEncoder;
 
     private final static String RETURN_NULL = "returnNull";

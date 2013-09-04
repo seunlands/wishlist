@@ -3,7 +3,8 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Login into WishList</title>
@@ -15,24 +16,23 @@
         <h:messages globalOnly="true"/>
 
         <!-- Id's must not be changed to support spring security check -->
-        <h:panelGrid columns="3">
-            <h:outputLabel for="username" value="User: * " />
-            <h:inputText id="username" required="true" label="username" value="#{loginFormBackingBean.userName}" />
+        <p:panelGrid columns="3">
+            <p:outputLabel for="username" value="User:" />
+            <p:inputText id="username" required="true" label="username" value="#{loginFormBackingBean.userName}" />
             <h:message for="username" display="text" style="color:red"/>
 
-            <h:outputLabel for="password" value="Password: * " />
-            <h:inputSecret id="password" label="password" required="true" value  ="#{loginFormBackingBean.password}" />
-            <h:message for="password" display="text" style="color:red"/>
+            <p:outputLabel for="password" value="Password:" />
+            <p:password id="password" label="password"  value="#{loginFormBackingBean.password}" />
+            <h:message for="password" display="text" style="color:red" showDetail="false"/>
 
-        </h:panelGrid>
+            <f:facet name="footer">
+                <p:commandButton type="submit" id="login" value="Login"
+                                 action="#{loginLogoutController.doLogin}" ajax="false" />
+                <p:button outcome="/user/resetPassword" value="Reset Password"/>
+            </f:facet>
 
-        <h:commandButton type="submit" id="login" value="Login"
-                         action="#{loginLogoutController.doLogin}" />
+        </p:panelGrid>
     </h:form>
-    <h:panelGrid>
-        <h:link value="Forgot your password, don't worry : click here" outcome="/user/resetPassword" />
-    </h:panelGrid>
-
 </h:body>
 
 </html>

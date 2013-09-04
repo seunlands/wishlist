@@ -28,14 +28,14 @@ public class UserRepositoryTest extends AbstractRepositoryTesting {
     @Before
     public void prepare(){
         //on ajoute des user dans la base
-        {
-            User user = new User("test", "test", "test");
-            userRepository.save(user);
-        }
+        
+    	User user = new User("test", "test", "test");
+    	userRepository.save(user);
+        
     }
 
     @Test
-    public void testFindByLogin(){
+    public void testFindByLogin() {
         //user in db
         User user = userRepository.findByLogin("test");
         assertNotNull("User shouldn't be null", user);
@@ -47,7 +47,7 @@ public class UserRepositoryTest extends AbstractRepositoryTesting {
     }
 
     @Test
-    public void testSave(){
+    public void testSave() {
         //user not in db -> save
         {
             User user = new User("test1", "test1", "test1");
@@ -85,7 +85,7 @@ public class UserRepositoryTest extends AbstractRepositoryTesting {
     }
 
     @Test
-    public void testFindByEmail(){
+    public void testFindByEmail() {
         //user in db
         User user = userRepository.findByEmail("test");
         assertNotNull("User shouldn't be null", user);

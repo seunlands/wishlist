@@ -41,12 +41,12 @@ public interface AbstractDao<E, I> {
      * @param criterion restriction of the entities to be find
      * @return List of entities corresponding to the Criterion
      */
-    List findByCriteria(Criterion criterion);
+    List<E> findByCriteria(Criterion criterion);
 
     /**
      * finds the entities by the criteria map.
      * @param criteria map of restrictions to apply
      * @return list<E> of entities corresponding to the criteria supplied
      */
-    List findByCriteria(Map<String, Object> criteria);
+    List<E> findByCriteria(Map<String, Object> criteria);
 }
