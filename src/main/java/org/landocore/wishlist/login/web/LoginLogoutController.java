@@ -53,6 +53,11 @@ public class LoginLogoutController {
      * @throws IOException dispatcher forward
      */
     public final String doLogin() throws ServletException, IOException {
+        
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Received request for login");
+        }
+        
         //authentication manager located in  Spring config
         AuthenticationManager authenticationManager =
                 (AuthenticationManager) getSpringBean("authenticationManager");

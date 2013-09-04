@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
+import org.landocore.wishlist.profile.repository.internal.ProfileRepositoryImpl;
 
 /**
  * Created with IntelliJ IDEA.
@@ -80,7 +81,8 @@ public class DataConfigTests {
     private Class<?>[] getHibernateAnnotatedEntities() {
         return new Class<?>[]{
             org.landocore.wishlist.usermanagement.domain.Authority.class,
-            org.landocore.wishlist.usermanagement.domain.User.class
+            org.landocore.wishlist.usermanagement.domain.User.class,
+            org.landocore.wishlist.profile.domain.Profile.class
         };
     }
 
@@ -93,7 +95,14 @@ public class DataConfigTests {
         return new UserRepositoryImpl(sessionFactory().getObject());
     }
 
-
+    /**
+     * instantiates the profile repo.
+     * @return ProfileRepositoryImpl
+     */
+    @Bean
+    public ProfileRepositoryImpl profileRepository() {
+        return new ProfileRepositoryImpl(sessionFactory().getObject());
+    }
 
 
 }

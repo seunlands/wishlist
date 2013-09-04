@@ -97,7 +97,7 @@ public class AuthenticationUserDetailsGetterTest {
         assertEquals("password is not correct", "test", userDetails.getPassword());
 
         try{
-            userDetails = authenticationUserDetailsGetter.loadUserByUsername(USER_NULL);
+            authenticationUserDetailsGetter.loadUserByUsername(USER_NULL);
             Assert.fail();
         } catch (UsernameNotFoundException e) {
 
