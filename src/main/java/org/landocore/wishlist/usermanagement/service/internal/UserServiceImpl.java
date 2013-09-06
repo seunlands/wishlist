@@ -1,7 +1,12 @@
 package org.landocore.wishlist.usermanagement.service.internal;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.landocore.wishlist.common.enums.EnumAuthority;
 import org.landocore.wishlist.common.exception.IncompleteUserException;
 import org.landocore.wishlist.common.utils.StringUtils;
+import org.landocore.wishlist.usermanagement.domain.Authority;
 import org.landocore.wishlist.usermanagement.domain.User;
 import org.landocore.wishlist.usermanagement.repository.UserRepository;
 import org.landocore.wishlist.usermanagement.service.UserService;
@@ -49,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public final User createUser(User user) throws IncompleteUserException {
         if (user == null) {
             return null;
@@ -57,8 +62,17 @@ public class UserServiceImpl implements UserService {
         if (user.getPassword() == null) {
             throw new IncompleteUserException("Password is NULL");
         }
+        String rawPassword = user.getPassword();
         String password = passwordEncoder.encode(user.getPassword());
         user.setPassword(password);
+        //new user account always be disabled
+		user.setEnabled(false);
+		//new user account gets the ROLE_USER authority
+		List<Authority> lstAuthority = new ArrayList<>();
+		Authority authority = new Authority();
+		authority.setId(EnumAuthority.ROLE_USER.getIdAuthority());
+		lstAuthority.add(authority);
+		user.setListAuthorities(lstAuthority);
         userRepository.saveOrUpdate(user);
         return user;
     }

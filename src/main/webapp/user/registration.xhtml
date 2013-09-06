@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>New user creation</title>
+    </h:head>
+    <h:body>
+        <h3>Yes ! A new user... WELCOME</h3>
+        <h:form>
+
+            <h:messages globalOnly="true"/>
+        
+            <p:panelGrid columns="3">
+            
+                <p:outputLabel for="username" value="User:" />
+                <p:inputText id="username" required="true" label="username" value="#{registrationForm.userName}" />
+                <h:message for="username" display="text" style="color:red"/>
+
+                <p:outputLabel for="email" value="E-mail:" />
+                <p:inputText id="email" required="true" label="email" value="#{registrationForm.email}" />
+                <h:message for="email" display="text" style="color:red"/>
+                
+                <p:outputLabel for="emailConfirm" value="E-mail confirmation:" />
+                <p:inputText id="emailConfirm" required="true" label="emailConfirm" value="#{registrationForm.emailConfirm}" />
+                <h:message for="emailConfirm" display="text" style="color:red"/>
+                
+                <p:outputLabel for="password" value="Password:" />
+                <p:password id="password" required="true" label="password" value="#{registrationForm.rawPassword}" feedback="true" />
+                <h:message for="password" display="text" style="color:red"/>
+                
+                <p:outputLabel for="passwordConfirm" value="Password confirmation:" />
+                <p:password id="passwordConfirm" required="true" label="passwordConfirm" value="#{registrationForm.rawPasswordConfirm}" />
+                <h:message for="passwordConfirm" display="text" style="color:red"/>
+                
+                <p:outputLabel for="birthDate" value="Birth date:" />
+                <p:calendar id="birthDate" required="true" label="birthDate" value="#{registrationForm.birthDate}" navigator="true" pattern="dd/MM/yyyy"/>
+                <h:message for="birthDate" display="text" style="color:red"/>
+                
+                
+                <f:facet name="footer">
+                    <p:commandButton type="submit" id="register" value="Register"
+                                 action="#{registerController.register}" ajax="false" />
+                    <p:button outcome="/auth/login" value="Go back to login page"/>
+                </f:facet>            
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+
+</html>

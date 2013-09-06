@@ -8,16 +8,16 @@
 
     <http auto-config="true" access-denied-page="/auth/denied.do" access-decision-manager-ref="accessDecisionManager">
         <session-management session-fixation-protection="migrateSession"/>
-        <intercept-url pattern="/auth/login.html" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https"/>
+        <intercept-url pattern="/auth/login.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="https"/>
         <intercept-url pattern="/j_spring_security_check" requires-channel="https" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/accueil/admin.do" access="ROLE_ADMIN"/>
         <intercept-url pattern="/accueil/init.do" access="ROLE_USER"/>
         <intercept-url pattern="/user/*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <form-login
-                login-page="/auth/login.html"/>
+                login-page="/auth/login.xhtml" />
         <logout
                 invalidate-session="true"
-                logout-success-url="/auth/login.do"
+                logout-success-url="/auth/login.xhtml"
                 logout-url="/auth/logout.do"/>
         <remember-me key="rememberMeKey" user-service-ref="userDetailsService"/>
 

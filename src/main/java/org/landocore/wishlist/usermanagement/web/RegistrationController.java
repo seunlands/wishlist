@@ -4,6 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import org.landocore.wishlist.usermanagement.domain.User;
 import org.landocore.wishlist.usermanagement.service.UserService;
 
 /**
@@ -13,7 +14,7 @@ import org.landocore.wishlist.usermanagement.service.UserService;
  */
 @ManagedBean
 @RequestScoped
-public class CreateAccountController {
+public class RegistrationController {
 
 	/**
 	 * the user service.
@@ -24,13 +25,17 @@ public class CreateAccountController {
 	/**
 	 * the account creation form.
 	 */
-	@ManagedProperty(value = "#{createAccountForm}")
-	private CreateAccountForm createAccountForm;
+	@ManagedProperty(value = "#{registrationForm}")
+	private RegistrationForm registrationForm;
 
 	/**
 	 * account creation method.
 	 */
-	public final void createAccount() {
+	public final void register() {
+		
+		User user = new User(registrationForm.getUserName(), registrationForm.getEmail(), registrationForm.getRawPassword());
+		//every user should be enabled by administrator
+		
 
 	}
 
@@ -44,12 +49,12 @@ public class CreateAccountController {
 	}
 
 	/**
-	 * Setter of the createAccountForm.
-	 * @param pCreateAccountForm the createAccountForm to set
+	 * Setter of the registerForm.
+	 * @param pRegistrationForm the registerForm to set
 	 */
-	public final void setCreateAccountForm(
-			final CreateAccountForm pCreateAccountForm) {
-		this.createAccountForm = pCreateAccountForm;
+	public final void setRegsiterForm(
+			final RegistrationForm pRegistrationForm) {
+		this.registrationForm = pRegistrationForm;
 	}
 
 

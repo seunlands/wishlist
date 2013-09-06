@@ -1,26 +1,20 @@
 package org.landocore.wishlist.login.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
-import org.springframework.security.authentication.
-        UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import java.io.IOException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import java.io.IOException;
+
+import org.landocore.wishlist.login.service.UserLoginService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,6 +39,9 @@ public class LoginLogoutController {
      */
     @ManagedProperty(value = "#{loginFormBackingBean}")
     private LoginFormBackingBean loginFormBackingBean;
+    
+    @ManagedProperty(value = "#{userLoginService}")
+    private UserLoginService userLoginService;
 
     /**
      * forward the login to spring security.
@@ -58,22 +55,11 @@ public class LoginLogoutController {
             LOGGER.debug("Received request for login");
         }
         
-        //authentication manager located in  Spring config
-        AuthenticationManager authenticationManager =
-                (AuthenticationManager) getSpringBean("authenticationManager");
-        //simple token holder
-        Authentication authenticationRequestToken =
-                createAuthenticationToken(loginFormBackingBean);
-        //authentication action
         try {
-            Authentication authenticationResponseToken =
-                    authenticationManager.authenticate(authenticationRequestToken);
-            SecurityContextHolder.getContext().setAuthentication(authenticationResponseToken);
-            //ok, test if authenticated, if yes reroute
-            if (authenticationResponseToken.isAuthenticated()) {
-                //lookup authentication success url, or find redirect parameter from login bean
-                return "/secure/examples";
-            }
+        	boolean authenticated = userLoginService.login(loginFormBackingBean.getUserName(), loginFormBackingBean.getPassword());
+        	if (authenticated) {
+        		return "/wishlist/dashboard";
+        	}
         } catch (BadCredentialsException badCredentialsException) {
             FacesMessage facesMessage =
                     new FacesMessage("Login Failed: please check your username/password and try again.");
@@ -90,36 +76,13 @@ public class LoginLogoutController {
 
         return null;
     }
-
-
-    /**
-     * create authnetication token from login form.
-     * @param loginFormBean  login form
-     * @return  authentication token
-     */
-    private Authentication createAuthenticationToken(
-            final LoginFormBackingBean loginFormBean) {
-        UsernamePasswordAuthenticationToken usernamePwdAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(
-                        loginFormBean.getUserName(),
-                        loginFormBean.getPassword()
-                );
-        return usernamePwdAuthenticationToken;
+    
+    
+    public final String doLogout() {
+    	userLoginService.logout();
+    	return "/auth/login";
     }
 
-
-    /**
-     * gets the srping bean.
-     * @param name  name of the bean
-     * @return the bean
-     */
-    private Object getSpringBean(final String name) {
-        WebApplicationContext ctx = WebApplicationContextUtils.
-                getRequiredWebApplicationContext(
-                        (ServletContext) FacesContext.getCurrentInstance().
-                                getExternalContext().getContext());
-        return ctx.getBean(name);
-    }
 
     /**
      * setter of the login form.
@@ -128,6 +91,13 @@ public class LoginLogoutController {
     public final void setLoginFormBackingBean(
             final LoginFormBackingBean pLoginFormBackingBean) {
         this.loginFormBackingBean = pLoginFormBackingBean;
+    }
+    
+    /**
+     * @param pUserLoginService userLoginService to set
+     */
+    public final void setUserLoginService(final UserLoginService pUserLoginService) {
+    	this.userLoginService = pUserLoginService;
     }
 
 }

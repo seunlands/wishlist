@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.hibernate.criterion.Criterion;
 import org.junit.Before;
 import org.junit.Test;
+import org.landocore.wishlist.common.enums.EnumAuthority;
 import org.landocore.wishlist.common.exception.IncompleteUserException;
 import org.landocore.wishlist.usermanagement.domain.User;
 import org.landocore.wishlist.usermanagement.repository.UserRepository;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -115,6 +117,10 @@ public class UserServiceTest {
         assertNotNull("user shouldn't be NULL", user);
         assertEquals("id should be 999", 999L, (long)user.getId());
         assertTrue("encoded password isn't correct", passwordEncoder.matches("test", user.getPassword()));
+        assertFalse("account should be disabled", user.isEnabled());
+		assertNotNull("account authority shouldn't be NULL", user.getListAuthorities());
+		assertEquals("size of authority should be 1", 1, user.getListAuthorities().size());
+		assertEquals("user should have authority ROLE_USER", EnumAuthority.ROLE_USER.getIdAuthority(), user.getListAuthorities().get(0).getId());
 
 
         //null user
