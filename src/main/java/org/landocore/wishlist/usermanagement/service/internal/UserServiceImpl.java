@@ -5,16 +5,20 @@ import java.util.List;
 
 import org.landocore.wishlist.common.enums.EnumAuthority;
 import org.landocore.wishlist.common.exception.IncompleteUserException;
+import org.landocore.wishlist.common.exception.PasswordStrengthException;
 import org.landocore.wishlist.common.utils.StringUtils;
 import org.landocore.wishlist.usermanagement.domain.Authority;
 import org.landocore.wishlist.usermanagement.domain.User;
 import org.landocore.wishlist.usermanagement.repository.UserRepository;
 import org.landocore.wishlist.usermanagement.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +29,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
+	
+	/**
+	 * the Logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.
+			getLogger(UserServiceImpl.class);
 
     /**
      * user repo.
@@ -44,10 +54,15 @@ public class UserServiceImpl implements UserService {
     @Value("${wishlist.password.min.length}")
     private int passwordLength;
 
+    /**
+     * the minimum differentcaracter in password.
+     */
+    @Value("${wishlist.password.min.different.characters}")
+    private int differentCharacters;
 
 
 
-    @Override
+	@Override
     @Transactional
     public final User getUserByUsername(final String username) {
         return userRepository.findByLogin(username);
@@ -55,7 +70,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = false)
-    public final User createUser(User user) throws IncompleteUserException {
+    public final User createUser(User user)
+    		throws IncompleteUserException, PasswordStrengthException {
         if (user == null) {
             return null;
         }
@@ -63,7 +79,13 @@ public class UserServiceImpl implements UserService {
             throw new IncompleteUserException("Password is NULL");
         }
         String rawPassword = user.getPassword();
-        String password = passwordEncoder.encode(user.getPassword());
+        if (!StringUtils.isPasswordComplexEnough(rawPassword,
+        		passwordLength, differentCharacters)) {
+        	LOGGER.info("Password doesn't match security rules");
+        	throw new PasswordStrengthException(
+        			"Password doesn't comply with security rules!");
+        }
+        String password = passwordEncoder.encode(rawPassword);
         user.setPassword(password);
         //new user account always be disabled
 		user.setEnabled(false);
@@ -122,6 +144,13 @@ public class UserServiceImpl implements UserService {
     public final void setPasswordLength(final int pPasswordLength) {
         this.passwordLength = pPasswordLength;
     }
+
+    /**
+	 * @param pDifferentCharacters the differentCharacters to set
+	 */
+	public void setDifferentCharacters(final int pDifferentCharacters) {
+		this.differentCharacters = pDifferentCharacters;
+	}
 
 
 

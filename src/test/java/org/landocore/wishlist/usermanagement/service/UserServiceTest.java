@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.landocore.wishlist.common.enums.EnumAuthority;
 import org.landocore.wishlist.common.exception.IncompleteUserException;
+import org.landocore.wishlist.common.exception.PasswordStrengthException;
 import org.landocore.wishlist.usermanagement.domain.User;
 import org.landocore.wishlist.usermanagement.repository.UserRepository;
 import org.landocore.wishlist.usermanagement.service.internal.UserServiceImpl;
@@ -110,7 +111,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public final void testCreateUser() throws IncompleteUserException {
+    public final void testCreateUser() throws IncompleteUserException, PasswordStrengthException {
 
         User user = new User("test", "test", "test");
         user = userService.createUser(user);

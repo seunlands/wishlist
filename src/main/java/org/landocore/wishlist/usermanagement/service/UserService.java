@@ -2,6 +2,7 @@ package org.landocore.wishlist.usermanagement.service;
 
 
 import org.landocore.wishlist.common.exception.IncompleteUserException;
+import org.landocore.wishlist.common.exception.PasswordStrengthException;
 import org.landocore.wishlist.usermanagement.domain.User;
 
 /**
@@ -26,8 +27,9 @@ public interface UserService {
      * @param pUser user to create
      * @return the created user
      * @throws IncompleteUserException when user's password is NULL
+     * @throws PasswordStrengthException when password not complexe enough
      */
-    User createUser(User pUser) throws IncompleteUserException;
+    User createUser(User pUser) throws IncompleteUserException, PasswordStrengthException;
 
     /**
      * Resets the users password.
