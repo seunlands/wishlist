@@ -35,7 +35,7 @@ public class Profile implements Serializable {
      * the id.
      */
     @Id
-    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = javax.persistence.GenerationType.SEQUENCE)
     @Column(name = "profile_id")
     private Long id;
     /**

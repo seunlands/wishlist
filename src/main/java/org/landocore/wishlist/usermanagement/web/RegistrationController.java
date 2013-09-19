@@ -88,7 +88,7 @@ public class RegistrationController {
 	 * Setter of the registerForm.
 	 * @param pRegistrationForm the registerForm to set
 	 */
-	public final void setRegsiterForm(
+	public final void setRegistrationForm(
 			final RegistrationForm pRegistrationForm) {
 		this.registrationForm = pRegistrationForm;
 	}

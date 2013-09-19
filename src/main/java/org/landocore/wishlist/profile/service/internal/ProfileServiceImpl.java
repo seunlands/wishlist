@@ -11,7 +11,9 @@ import org.landocore.wishlist.usermanagement.domain.User;
 import org.landocore.wishlist.usermanagement.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * business class of the profile part.
@@ -38,6 +40,7 @@ public class ProfileServiceImpl implements ProfileService {
 	private UserService userService;
 
 	@Override
+	@Transactional(readOnly = false)
 	public final Profile createProfile(final String userName,
 			final String rawPassword, final String email,
 			final String name, final String lastName,
@@ -63,7 +66,7 @@ public class ProfileServiceImpl implements ProfileService {
 			LOGGER.warn("Error creating user. Reason : "
 					+ exception.getMessage());
 			throw exception;
-		} 
+		}
 		profile.setUser(user);
 		profile.setBirthDate(birthDate);
 		profile.setLastName(lastName);
@@ -86,6 +89,7 @@ public class ProfileServiceImpl implements ProfileService {
 	/**
 	 * @param pProfileRepository the profileRepository to set
 	 */
+	@Autowired
 	public final void setProfileRepository(
 			final ProfileRepository pProfileRepository) {
 		this.profileRepository = pProfileRepository;
@@ -94,6 +98,7 @@ public class ProfileServiceImpl implements ProfileService {
 	/**
 	 * @param pUserService the userService to set
 	 */
+	@Autowired
 	public final void setUserService(final UserService pUserService) {
 		this.userService = pUserService;
 	}

@@ -21,6 +21,14 @@
                 <p:inputText id="username" required="true" label="username" value="#{registrationForm.userName}" />
                 <h:message for="username" display="text" style="color:red"/>
 
+                <p:outputLabel for="name" value="Name:" />
+                <p:inputText id="name" required="true" label="name" value="#{registrationForm.name}" />
+                <h:message for="name" display="text" style="color:red"/>
+
+                <p:outputLabel for="lastName" value="lastName:" />
+                <p:inputText id="lastName" required="true" label="lastName" value="#{registrationForm.lastName}" />
+                <h:message for="lastName" display="text" style="color:red"/>
+
                 <p:outputLabel for="email" value="E-mail:" />
                 <p:inputText id="email" required="true" label="email" value="#{registrationForm.email}" />
                 <h:message for="email" display="text" style="color:red"/>
@@ -44,7 +52,7 @@
                 
                 <f:facet name="footer">
                     <p:commandButton type="submit" id="register" value="Register"
-                                 action="#{registerController.register}" ajax="false" />
+                                 action="#{registrationController.register}" ajax="false" />
                     <p:button outcome="/auth/login" value="Go back to login page"/>
                 </f:facet>            
             </p:panelGrid>

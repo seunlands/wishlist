@@ -10,7 +10,7 @@ import javax.faces.bean.SessionScoped;
  * @author LANDSBERG-S
  *
  */
-@ManagedBean
+@ManagedBean(name = "registrationForm")
 @SessionScoped
 public class RegistrationForm implements Serializable {
 
