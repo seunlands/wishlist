@@ -2,8 +2,10 @@ package org.landocore.wishlist.profile.service;
 
 import java.util.Date;
 
+import org.landocore.wishlist.common.exception.EmailExistsException;
 import org.landocore.wishlist.common.exception.IncompleteUserException;
 import org.landocore.wishlist.common.exception.PasswordStrengthException;
+import org.landocore.wishlist.common.exception.UsernameExistsException;
 import org.landocore.wishlist.profile.domain.Profile;
 
 
@@ -24,11 +26,14 @@ public interface ProfileService {
 	 * @return the profile created
 	 * @throws IncompleteUserException when required fields are missing
 	 * @throws PasswordStrengthException when password isn't secure enough
+	 * @throws UsernameExistsException when username already taken
+	 * @throws EmailExistsException when email already taken
 	 */
 	Profile createProfile(final String userName,
 			final String rawPassword, final String email,
 			final String name, final String lastName,
 			final Date birthDate)
-					throws IncompleteUserException, PasswordStrengthException;
+		throws IncompleteUserException, PasswordStrengthException,
+			UsernameExistsException, EmailExistsException;
 
 }

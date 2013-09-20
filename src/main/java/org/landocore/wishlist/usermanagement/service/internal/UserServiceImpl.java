@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.landocore.wishlist.common.enums.EnumAuthority;
+import org.landocore.wishlist.common.exception.EmailExistsException;
 import org.landocore.wishlist.common.exception.IncompleteUserException;
 import org.landocore.wishlist.common.exception.PasswordStrengthException;
+import org.landocore.wishlist.common.exception.UsernameExistsException;
 import org.landocore.wishlist.common.utils.StringUtils;
 import org.landocore.wishlist.usermanagement.domain.Authority;
 import org.landocore.wishlist.usermanagement.domain.User;
@@ -71,7 +73,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = false)
     public final User createUser(User user)
-    		throws IncompleteUserException, PasswordStrengthException {
+    		throws IncompleteUserException, PasswordStrengthException
+    		, UsernameExistsException, EmailExistsException {
         if (user == null) {
             return null;
         }
@@ -85,6 +88,13 @@ public class UserServiceImpl implements UserService {
         	throw new PasswordStrengthException(
         			"Password doesn't comply with security rules!");
         }
+        if (userRepository.findByLogin(user.getUsername()) != null) {
+        	throw new UsernameExistsException("Username already exists");
+        }
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+        	throw new EmailExistsException("Username already exists");
+        }
+        
         String password = passwordEncoder.encode(rawPassword);
         user.setPassword(password);
         //new user account always be disabled
@@ -100,7 +110,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public final User resetPassword(final String pUsername) {
         User user = userRepository.findByLogin(pUsername);
         User userToReturn = null;

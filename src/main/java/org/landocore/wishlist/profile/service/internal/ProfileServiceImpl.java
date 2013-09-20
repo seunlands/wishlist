@@ -2,8 +2,10 @@ package org.landocore.wishlist.profile.service.internal;
 
 import java.util.Date;
 
+import org.landocore.wishlist.common.exception.EmailExistsException;
 import org.landocore.wishlist.common.exception.IncompleteUserException;
 import org.landocore.wishlist.common.exception.PasswordStrengthException;
+import org.landocore.wishlist.common.exception.UsernameExistsException;
 import org.landocore.wishlist.profile.domain.Profile;
 import org.landocore.wishlist.profile.repository.ProfileRepository;
 import org.landocore.wishlist.profile.service.ProfileService;
@@ -45,7 +47,8 @@ public class ProfileServiceImpl implements ProfileService {
 			final String rawPassword, final String email,
 			final String name, final String lastName,
 			final Date birthDate)
-					throws IncompleteUserException, PasswordStrengthException {
+		throws IncompleteUserException, PasswordStrengthException,
+			UsernameExistsException, EmailExistsException {
 		
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Creating user account for username : "
@@ -66,6 +69,14 @@ public class ProfileServiceImpl implements ProfileService {
 			LOGGER.warn("Error creating user. Reason : "
 					+ exception.getMessage());
 			throw exception;
+		} catch (UsernameExistsException e) {
+			LOGGER.warn("Error creating user. Reason : "
+					+ e.getMessage());
+			throw e;
+		} catch (EmailExistsException e) {
+			LOGGER.warn("Error creating user. Reason : "
+					+ e.getMessage());
+			throw e;
 		}
 		profile.setUser(user);
 		profile.setBirthDate(birthDate);

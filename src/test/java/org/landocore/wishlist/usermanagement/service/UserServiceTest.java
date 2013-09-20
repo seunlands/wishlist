@@ -5,8 +5,10 @@ import org.hibernate.criterion.Criterion;
 import org.junit.Before;
 import org.junit.Test;
 import org.landocore.wishlist.common.enums.EnumAuthority;
+import org.landocore.wishlist.common.exception.EmailExistsException;
 import org.landocore.wishlist.common.exception.IncompleteUserException;
 import org.landocore.wishlist.common.exception.PasswordStrengthException;
+import org.landocore.wishlist.common.exception.UsernameExistsException;
 import org.landocore.wishlist.usermanagement.domain.User;
 import org.landocore.wishlist.usermanagement.repository.UserRepository;
 import org.landocore.wishlist.usermanagement.service.internal.UserServiceImpl;
@@ -111,9 +113,9 @@ public class UserServiceTest {
     }
 
     @Test
-    public final void testCreateUser() throws IncompleteUserException, PasswordStrengthException {
+    public final void testCreateUser() throws IncompleteUserException, PasswordStrengthException, UsernameExistsException, EmailExistsException {
 
-        User user = new User("test", "test", "test");
+        User user = new User(RETURN_NULL, "test", "test");
         user = userService.createUser(user);
         assertNotNull("user shouldn't be NULL", user);
         assertEquals("id should be 999", 999L, (long)user.getId());
@@ -137,6 +139,17 @@ public class UserServiceTest {
         } catch (IncompleteUserException e) {
 
         }
+        
+        //test username already in DB
+        User user1 = new User("test", "test1", "test1");
+        try{
+        	user1 = userService.createUser(user1);
+        	Assert.fail();
+        } catch (UsernameExistsException e) {
+        	
+        }
+       
+        
 
     }
 

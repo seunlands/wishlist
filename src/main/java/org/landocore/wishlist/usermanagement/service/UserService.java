@@ -1,8 +1,10 @@
 package org.landocore.wishlist.usermanagement.service;
 
 
+import org.landocore.wishlist.common.exception.EmailExistsException;
 import org.landocore.wishlist.common.exception.IncompleteUserException;
 import org.landocore.wishlist.common.exception.PasswordStrengthException;
+import org.landocore.wishlist.common.exception.UsernameExistsException;
 import org.landocore.wishlist.usermanagement.domain.User;
 
 /**
@@ -27,9 +29,13 @@ public interface UserService {
      * @param pUser user to create
      * @return the created user
      * @throws IncompleteUserException when user's password is NULL
-     * @throws PasswordStrengthException when password not complexe enough
+     * @throws PasswordStrengthException when password not complex enough
+     * @throws UsernameExistsException when the username is already in db
+     * @throws EmailExistsException when the email is already in db
      */
-    User createUser(User pUser) throws IncompleteUserException, PasswordStrengthException;
+    User createUser(User pUser) throws IncompleteUserException,
+    	PasswordStrengthException, UsernameExistsException,
+    	EmailExistsException;
 
     /**
      * Resets the users password.

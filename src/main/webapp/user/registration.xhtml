@@ -18,7 +18,7 @@
             <p:panelGrid columns="3">
             
                 <p:outputLabel for="username" value="User:" />
-                <p:inputText id="username" required="true" label="username" value="#{registrationForm.userName}" />
+                <p:inputText id="username" required="true" label="username" value="#{registrationForm.userName}" binding="#{registrationController.userNameField}"/>
                 <h:message for="username" display="text" style="color:red"/>
 
                 <p:outputLabel for="name" value="Name:" />
@@ -30,7 +30,7 @@
                 <h:message for="lastName" display="text" style="color:red"/>
 
                 <p:outputLabel for="email" value="E-mail:" />
-                <p:inputText id="email" required="true" label="email" value="#{registrationForm.email}" />
+                <p:inputText id="email" required="true" label="email" value="#{registrationForm.email}" binding="#{registrationController.emailField}"/>
                 <h:message for="email" display="text" style="color:red"/>
                 
                 <p:outputLabel for="emailConfirm" value="E-mail confirmation:" />
